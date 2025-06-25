@@ -1,0 +1,895 @@
+{
+  "meta": {
+    "type": "request",
+    "folder_path": "test-debug/levo_public_apis/version_1/bevy/content"
+  },
+  "name": "Query",
+  "request": {
+    "method": "POST",
+    "header": [
+      {
+        "key": "Levo-Workspace",
+        "value": "{{WORKSPACE}}",
+        "description": "The ID of the Workspace you use.",
+        "type": "text"
+      },
+      {
+        "key": "Levo-API-Key",
+        "value": "{{API_KEY}}",
+        "description": "The API Key generated for your workspace.",
+        "type": "text"
+      }
+    ],
+    "body": {
+      "mode": "raw",
+      "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 3,\r\n    \"search\": \"knowledge\",\r\n    \"select\": {\r\n        \"title\": true,\r\n        \"summary\": true,\r\n        \"cover_image\": true,\r\n        \"slug\": true,\r\n        \"created_at\": true\r\n    },\r\n    \"where\": {\r\n        \"host.name\": \"Shane Parish\"\r\n    },\r\n    \"sort\":{\r\n        \"created_at\": \"desc\"\r\n    }\r\n}",
+      "options": {
+        "raw": {
+          "language": "json"
+        }
+      }
+    },
+    "url": {
+      "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
+      "host": [
+        "{{ENDPOINT}}"
+      ],
+      "path": [
+        "v1",
+        "bevy",
+        "content",
+        ":key",
+        "query"
+      ],
+      "variable": [
+        {
+          "key": "key",
+          "value": "{{COLLECTION}}",
+          "description": "The ID or the Key of the Collection whose Entry you want to update."
+        }
+      ]
+    }
+  },
+  "response": [
+    {
+      "name": "Success - Basic Pagination",
+      "originalRequest": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Levo-Workspace",
+            "value": "WD4RLK2Q",
+            "type": "text"
+          },
+          {
+            "key": "Levo-API-Key",
+            "value": "wk.w9wchhpx.c3QxLEIm.9c77c62ad8ecd16e6ce28e8b8a67560a8bcfa257a8d8d41909a7858aae41f8d1",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"page\": 1,\r\n  \"limit\": 3\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://public-api.levo.so/v1/bevy/content/:key/query",
+          "protocol": "https",
+          "host": [
+            "public-api",
+            "levo",
+            "so"
+          ],
+          "path": [
+            "v1",
+            "bevy",
+            "content",
+            ":key",
+            "query"
+          ],
+          "variable": [
+            {
+              "key": "key",
+              "value": "podcast"
+            }
+          ]
+        }
+      },
+      "status": "OK",
+      "code": 200,
+      "_postman_previewlanguage": "json",
+      "header": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "public-api.levo.so"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Levo-Workspace,X-CF-CDN-Bot,Levo-Workspace"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "PUT,POST,GET,DELETE,OPTIONS"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "ETag",
+          "value": "W/\"13f1-AO0YzBlIkrEU1vopQsFrPtP8gv0\""
+        },
+        {
+          "key": "X-Powered-By",
+          "value": "Express"
+        },
+        {
+          "key": "Levo-Request-ID",
+          "value": "7194296749086181424"
+        },
+        {
+          "key": "Date",
+          "value": "Thu, 09 May 2024 11:26:48 GMT"
+        },
+        {
+          "key": "Content-Length",
+          "value": "5105"
+        }
+      ],
+      "cookie": [],
+      "body": "{\n    \"status\": true,\n    \"content\": {\n        \"meta\": {\n            \"total\": 5,\n            \"pages\": 2\n        },\n        \"data\": [\n            {\n                \"_id\": \"7194295151047969509\",\n                \"title\": \"Matt Ridley: How Innovation Works\",\n                \"summary\": \"Innovation is the child of freedom\",\n                \"cover_image\": {\n                    \"id\": \"JyOazEtP2HqPl\",\n                    \"location\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c.jpg\",\n                    \"mimetype\": \"image/jpeg\",\n                    \"kind\": \"image\",\n                    \"srcset\": {\n                        \"1080w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1080w.webp\",\n                        \"1200w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1200w.webp\",\n                        \"1920w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1920w.webp\",\n                        \"320w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-320w.webp\",\n                        \"640w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-640w.webp\",\n                        \"750w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-750w.webp\",\n                        \"828w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-828w.webp\",\n                        \"path\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-320w.webp 320w, https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-828w.webp 828w, https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1080w.webp 1080w, https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1920w.webp 1920w, https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-640w.webp 640w, https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1200w.webp 1200w, https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-750w.webp 750w\"\n                    }\n                },\n                \"transcript\": \"<p><strong>Naval: I don’t have heroes, but there are people who I look up to and have learned a lot from, and </strong><a target=\\\"_blank\\\" rel=\\\"noopener noreferrer nofollow\\\" href=\\\"https://twitter.com/mattwridley\\\"><strong><u>Matt Ridley</u></strong></a><strong>, who is on the line, has got to be near the top of that list. Growing up, I was a voracious reader, especially of science. Matt had a bigger influence on pulling me into science, and a love of science, than almost any other author. His first book that I read was called </strong><a target=\\\"_blank\\\" rel=\\\"noopener noreferrer nofollow\\\" href=\\\"https://www.amazon.com/Genome-Autobiography-Species-23-Chapters/dp/0060894083\\\"><strong><u><em>Genome</em></u></strong></a><strong>. I must have six or seven dog-eared copies of it lying around in various boxes. It helped me define what life is, how it works, why it’s important, and placed evolution as a binding principle in the center of my worldview. That’s a common theme that runs across Matt’s books.&nbsp;</strong></p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Matt Ridley\",\n                        \"photo\": null,\n                        \"link\": \"https://www.mattridley.co.uk/\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Naval Ravikant\",\n                        \"photo\": null,\n                        \"link\": \"https://nav.al/\"\n                    }\n                ],\n                \"slug\": \"matt-ridley-how-innovation-works\",\n                \"created_at\": \"2024-05-09T11:20:27.636Z\",\n                \"updated_at\": \"2024-05-09T11:21:18.657Z\"\n            },\n            {\n                \"_id\": \"7194296359837991042\",\n                \"title\": \"Dr. Jim Loehr: Change The Stories You Tell Yourself [The Knowledge Project Ep. #193]\",\n                \"summary\": \"What if reaching the next level of success wasn’t determined by another skill, degree, or course but by something that changed on the inside?\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>That’s what Dr. Jim Loehr believes, and in this episode, he reveals everything he knows about mental toughness and winning the mind game. Shane and Loehr discuss the radical importance of the stories you tell yourself—including how they can damage your kids—and how to change the negative stories you believe. Loehr also shares the best reflection questions to ask yourself to reveal personal blindspots, the importance of rituals for calming anxiety and performing under pressure, and how the best in the world use their recovery time effectively.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Dr. Jim Loehr\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"dr-jim-loehr-change-the-stories-you-tell-yourself-the-knowledge-project-ep-193\",\n                \"created_at\": \"2024-05-09T11:25:15.822Z\",\n                \"updated_at\": \"2024-05-09T11:25:15.822Z\"\n            },\n            {\n                \"_id\": \"7194296489781724981\",\n                \"title\": \"David Segal: Yearly Planning, Daily Action [The Knowledge Project Ep. #192]\",\n                \"summary\": \"Working in a business and working on a business are two different things. Without the former, nothing gets done; without the latter, the wrong things get done. David Segal has a unique way of managing that tension, and in this episode, he reveals all his business operating secrets. Plus, he explains how he failed along the way.\\n\\n\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>Segal and Shane explore the true essence of entrepreneurship, the sources of motivation, and the valuable lessons Segal learned while building his $200 million tea business. They also delve into the often-overlooked dark side of success, including the profound depression that can follow a significant payday. Additionally, they share life and business lessons learned from Warren Buffett and discuss the importance of effective time management.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"David Segal\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"david-segal-yearly-planning-daily-action-the-knowledge-project-ep-192\",\n                \"created_at\": \"2024-05-09T11:25:46.802Z\",\n                \"updated_at\": \"2024-05-09T11:25:46.802Z\"\n            }\n        ]\n    }\n}"
+    },
+    {
+      "name": "Success - Basic Filtering",
+      "originalRequest": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Levo-Workspace",
+            "value": "{{WORKSPACE}}",
+            "type": "text"
+          },
+          {
+            "key": "Levo-API-Key",
+            "value": "{{API_KEY}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"page\": 1,\r\n  \"limit\": 3,\r\n  \"where\":{\r\n    \"title\": {\r\n        \"contains\": \"Knowledge\"\r\n    }\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
+          "host": [
+            "{{ENDPOINT}}"
+          ],
+          "path": [
+            "v1",
+            "bevy",
+            "content",
+            ":key",
+            "query"
+          ],
+          "variable": [
+            {
+              "key": "key",
+              "value": "{{COLLECTION}}"
+            }
+          ]
+        }
+      },
+      "status": "OK",
+      "code": 200,
+      "_postman_previewlanguage": "json",
+      "header": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "public-api.levo.so"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Levo-Workspace,X-CF-CDN-Bot,Levo-Workspace"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "PUT,POST,GET,DELETE,OPTIONS"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "ETag",
+          "value": "W/\"dce-prMwj22nzgxD/BlUdzrAy1M9Udw\""
+        },
+        {
+          "key": "X-Powered-By",
+          "value": "Express"
+        },
+        {
+          "key": "Levo-Request-ID",
+          "value": "7194297064145519392"
+        },
+        {
+          "key": "Date",
+          "value": "Thu, 09 May 2024 11:28:03 GMT"
+        },
+        {
+          "key": "Content-Length",
+          "value": "3534"
+        }
+      ],
+      "cookie": [],
+      "body": "{\n    \"status\": true,\n    \"content\": {\n        \"meta\": {\n            \"total\": 4,\n            \"pages\": 2\n        },\n        \"data\": [\n            {\n                \"_id\": \"7194296359837991042\",\n                \"title\": \"Dr. Jim Loehr: Change The Stories You Tell Yourself [The Knowledge Project Ep. #193]\",\n                \"summary\": \"What if reaching the next level of success wasn’t determined by another skill, degree, or course but by something that changed on the inside?\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>That’s what Dr. Jim Loehr believes, and in this episode, he reveals everything he knows about mental toughness and winning the mind game. Shane and Loehr discuss the radical importance of the stories you tell yourself—including how they can damage your kids—and how to change the negative stories you believe. Loehr also shares the best reflection questions to ask yourself to reveal personal blindspots, the importance of rituals for calming anxiety and performing under pressure, and how the best in the world use their recovery time effectively.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Dr. Jim Loehr\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"dr-jim-loehr-change-the-stories-you-tell-yourself-the-knowledge-project-ep-193\",\n                \"created_at\": \"2024-05-09T11:25:15.822Z\",\n                \"updated_at\": \"2024-05-09T11:25:15.822Z\"\n            },\n            {\n                \"_id\": \"7194296489781724981\",\n                \"title\": \"David Segal: Yearly Planning, Daily Action [The Knowledge Project Ep. #192]\",\n                \"summary\": \"Working in a business and working on a business are two different things. Without the former, nothing gets done; without the latter, the wrong things get done. David Segal has a unique way of managing that tension, and in this episode, he reveals all his business operating secrets. Plus, he explains how he failed along the way.\\n\\n\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>Segal and Shane explore the true essence of entrepreneurship, the sources of motivation, and the valuable lessons Segal learned while building his $200 million tea business. They also delve into the often-overlooked dark side of success, including the profound depression that can follow a significant payday. Additionally, they share life and business lessons learned from Warren Buffett and discuss the importance of effective time management.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"David Segal\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"david-segal-yearly-planning-daily-action-the-knowledge-project-ep-192\",\n                \"created_at\": \"2024-05-09T11:25:46.802Z\",\n                \"updated_at\": \"2024-05-09T11:25:46.802Z\"\n            },\n            {\n                \"_id\": \"7194296600926588484\",\n                \"title\": \"Dr. Rhonda Patrick: Diet Essentials For Healthy Living  [The Knowledge Project Ep. #191]\",\n                \"summary\": \"Shane Parrish sits down with the renowned biochemist Dr. Rhonda Patrick to explore the intricate world of nutrition and health. \",\n                \"cover_image\": null,\n                \"transcript\": \"<p>Dr. Patrick provides a deep dive into the role micronutrients play in our daily health, detailing how deficiencies and insufficiencies in vitamins, minerals, fatty acids, and amino acids can lead to serious health issues over time. Shane and Dr. Patrick also discuss the science behind deliberate heat exposure. She outlines the optimal sauna conditions—temperature, duration, and frequency—necessary for these health benefits and explains how the physiological mechanisms work.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Dr. Rhonda Patrick\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"dr-rhonda-patrick-diet-essentials-for-healthy-living-the-knowledge-project-ep-191\",\n                \"created_at\": \"2024-05-09T11:26:13.337Z\",\n                \"updated_at\": \"2024-05-09T11:26:13.337Z\"\n            }\n        ]\n    }\n}"
+    },
+    {
+      "name": "Success - Filtering with AND/OR",
+      "originalRequest": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Levo-Workspace",
+            "value": "{{WORKSPACE}}",
+            "type": "text"
+          },
+          {
+            "key": "Levo-API-Key",
+            "value": "{{API_KEY}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 3,\r\n    \"where\": {\r\n        \"OR\": [\r\n            {\r\n                \"title\": {\r\n                    \"contains\": \"stories\"\r\n                }\r\n            },\r\n            {\r\n                \"created_at\": {\r\n                    \"gt\": \"2024-05-09T11:20:27.636Z\"\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
+          "host": [
+            "{{ENDPOINT}}"
+          ],
+          "path": [
+            "v1",
+            "bevy",
+            "content",
+            ":key",
+            "query"
+          ],
+          "variable": [
+            {
+              "key": "key",
+              "value": "{{COLLECTION}}"
+            }
+          ]
+        }
+      },
+      "status": "OK",
+      "code": 200,
+      "_postman_previewlanguage": "json",
+      "header": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "public-api.levo.so"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Levo-Workspace,X-CF-CDN-Bot,Levo-Workspace"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "PUT,POST,GET,DELETE,OPTIONS"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "ETag",
+          "value": "W/\"dce-prMwj22nzgxD/BlUdzrAy1M9Udw\""
+        },
+        {
+          "key": "X-Powered-By",
+          "value": "Express"
+        },
+        {
+          "key": "Levo-Request-ID",
+          "value": "7194297402651018836"
+        },
+        {
+          "key": "Date",
+          "value": "Thu, 09 May 2024 11:29:24 GMT"
+        },
+        {
+          "key": "Content-Length",
+          "value": "3534"
+        }
+      ],
+      "cookie": [],
+      "body": "{\n    \"status\": true,\n    \"content\": {\n        \"meta\": {\n            \"total\": 4,\n            \"pages\": 2\n        },\n        \"data\": [\n            {\n                \"_id\": \"7194296359837991042\",\n                \"title\": \"Dr. Jim Loehr: Change The Stories You Tell Yourself [The Knowledge Project Ep. #193]\",\n                \"summary\": \"What if reaching the next level of success wasn’t determined by another skill, degree, or course but by something that changed on the inside?\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>That’s what Dr. Jim Loehr believes, and in this episode, he reveals everything he knows about mental toughness and winning the mind game. Shane and Loehr discuss the radical importance of the stories you tell yourself—including how they can damage your kids—and how to change the negative stories you believe. Loehr also shares the best reflection questions to ask yourself to reveal personal blindspots, the importance of rituals for calming anxiety and performing under pressure, and how the best in the world use their recovery time effectively.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Dr. Jim Loehr\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"dr-jim-loehr-change-the-stories-you-tell-yourself-the-knowledge-project-ep-193\",\n                \"created_at\": \"2024-05-09T11:25:15.822Z\",\n                \"updated_at\": \"2024-05-09T11:25:15.822Z\"\n            },\n            {\n                \"_id\": \"7194296489781724981\",\n                \"title\": \"David Segal: Yearly Planning, Daily Action [The Knowledge Project Ep. #192]\",\n                \"summary\": \"Working in a business and working on a business are two different things. Without the former, nothing gets done; without the latter, the wrong things get done. David Segal has a unique way of managing that tension, and in this episode, he reveals all his business operating secrets. Plus, he explains how he failed along the way.\\n\\n\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>Segal and Shane explore the true essence of entrepreneurship, the sources of motivation, and the valuable lessons Segal learned while building his $200 million tea business. They also delve into the often-overlooked dark side of success, including the profound depression that can follow a significant payday. Additionally, they share life and business lessons learned from Warren Buffett and discuss the importance of effective time management.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"David Segal\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"david-segal-yearly-planning-daily-action-the-knowledge-project-ep-192\",\n                \"created_at\": \"2024-05-09T11:25:46.802Z\",\n                \"updated_at\": \"2024-05-09T11:25:46.802Z\"\n            },\n            {\n                \"_id\": \"7194296600926588484\",\n                \"title\": \"Dr. Rhonda Patrick: Diet Essentials For Healthy Living  [The Knowledge Project Ep. #191]\",\n                \"summary\": \"Shane Parrish sits down with the renowned biochemist Dr. Rhonda Patrick to explore the intricate world of nutrition and health. \",\n                \"cover_image\": null,\n                \"transcript\": \"<p>Dr. Patrick provides a deep dive into the role micronutrients play in our daily health, detailing how deficiencies and insufficiencies in vitamins, minerals, fatty acids, and amino acids can lead to serious health issues over time. Shane and Dr. Patrick also discuss the science behind deliberate heat exposure. She outlines the optimal sauna conditions—temperature, duration, and frequency—necessary for these health benefits and explains how the physiological mechanisms work.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Dr. Rhonda Patrick\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"dr-rhonda-patrick-diet-essentials-for-healthy-living-the-knowledge-project-ep-191\",\n                \"created_at\": \"2024-05-09T11:26:13.337Z\",\n                \"updated_at\": \"2024-05-09T11:26:13.337Z\"\n            }\n        ]\n    }\n}"
+    },
+    {
+      "name": "Success - Filtering with AND/OR",
+      "originalRequest": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Levo-Workspace",
+            "value": "{{WORKSPACE}}",
+            "type": "text"
+          },
+          {
+            "key": "Levo-API-Key",
+            "value": "{{API_KEY}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 3,\r\n    \"where\": {\r\n        \"OR\": [\r\n            {\r\n                \"host.name\": \"Shane Parish\"\r\n            },\r\n            {\r\n                \"created_at\": {\r\n                    \"gt\": \"2024-05-09T11:20:27.636Z\"\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
+          "host": [
+            "{{ENDPOINT}}"
+          ],
+          "path": [
+            "v1",
+            "bevy",
+            "content",
+            ":key",
+            "query"
+          ],
+          "variable": [
+            {
+              "key": "key",
+              "value": "{{COLLECTION}}"
+            }
+          ]
+        }
+      },
+      "status": "OK",
+      "code": 200,
+      "_postman_previewlanguage": "json",
+      "header": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "public-api.levo.so"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Levo-Workspace,X-CF-CDN-Bot,Levo-Workspace"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "PUT,POST,GET,DELETE,OPTIONS"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "ETag",
+          "value": "W/\"dce-prMwj22nzgxD/BlUdzrAy1M9Udw\""
+        },
+        {
+          "key": "X-Powered-By",
+          "value": "Express"
+        },
+        {
+          "key": "Levo-Request-ID",
+          "value": "7194297544758232363"
+        },
+        {
+          "key": "Date",
+          "value": "Thu, 09 May 2024 11:29:58 GMT"
+        },
+        {
+          "key": "Content-Length",
+          "value": "3534"
+        }
+      ],
+      "cookie": [],
+      "body": "{\n    \"status\": true,\n    \"content\": {\n        \"meta\": {\n            \"total\": 4,\n            \"pages\": 2\n        },\n        \"data\": [\n            {\n                \"_id\": \"7194296359837991042\",\n                \"title\": \"Dr. Jim Loehr: Change The Stories You Tell Yourself [The Knowledge Project Ep. #193]\",\n                \"summary\": \"What if reaching the next level of success wasn’t determined by another skill, degree, or course but by something that changed on the inside?\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>That’s what Dr. Jim Loehr believes, and in this episode, he reveals everything he knows about mental toughness and winning the mind game. Shane and Loehr discuss the radical importance of the stories you tell yourself—including how they can damage your kids—and how to change the negative stories you believe. Loehr also shares the best reflection questions to ask yourself to reveal personal blindspots, the importance of rituals for calming anxiety and performing under pressure, and how the best in the world use their recovery time effectively.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Dr. Jim Loehr\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"dr-jim-loehr-change-the-stories-you-tell-yourself-the-knowledge-project-ep-193\",\n                \"created_at\": \"2024-05-09T11:25:15.822Z\",\n                \"updated_at\": \"2024-05-09T11:25:15.822Z\"\n            },\n            {\n                \"_id\": \"7194296489781724981\",\n                \"title\": \"David Segal: Yearly Planning, Daily Action [The Knowledge Project Ep. #192]\",\n                \"summary\": \"Working in a business and working on a business are two different things. Without the former, nothing gets done; without the latter, the wrong things get done. David Segal has a unique way of managing that tension, and in this episode, he reveals all his business operating secrets. Plus, he explains how he failed along the way.\\n\\n\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>Segal and Shane explore the true essence of entrepreneurship, the sources of motivation, and the valuable lessons Segal learned while building his $200 million tea business. They also delve into the often-overlooked dark side of success, including the profound depression that can follow a significant payday. Additionally, they share life and business lessons learned from Warren Buffett and discuss the importance of effective time management.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"David Segal\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"david-segal-yearly-planning-daily-action-the-knowledge-project-ep-192\",\n                \"created_at\": \"2024-05-09T11:25:46.802Z\",\n                \"updated_at\": \"2024-05-09T11:25:46.802Z\"\n            },\n            {\n                \"_id\": \"7194296600926588484\",\n                \"title\": \"Dr. Rhonda Patrick: Diet Essentials For Healthy Living  [The Knowledge Project Ep. #191]\",\n                \"summary\": \"Shane Parrish sits down with the renowned biochemist Dr. Rhonda Patrick to explore the intricate world of nutrition and health. \",\n                \"cover_image\": null,\n                \"transcript\": \"<p>Dr. Patrick provides a deep dive into the role micronutrients play in our daily health, detailing how deficiencies and insufficiencies in vitamins, minerals, fatty acids, and amino acids can lead to serious health issues over time. Shane and Dr. Patrick also discuss the science behind deliberate heat exposure. She outlines the optimal sauna conditions—temperature, duration, and frequency—necessary for these health benefits and explains how the physiological mechanisms work.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Dr. Rhonda Patrick\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"dr-rhonda-patrick-diet-essentials-for-healthy-living-the-knowledge-project-ep-191\",\n                \"created_at\": \"2024-05-09T11:26:13.337Z\",\n                \"updated_at\": \"2024-05-09T11:26:13.337Z\"\n            }\n        ]\n    }\n}"
+    },
+    {
+      "name": "Success - Basic Sorting",
+      "originalRequest": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Levo-Workspace",
+            "value": "{{WORKSPACE}}",
+            "type": "text"
+          },
+          {
+            "key": "Levo-API-Key",
+            "value": "{{API_KEY}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 3,\r\n    \"sort\":{\r\n        \"created_at\": \"desc\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
+          "host": [
+            "{{ENDPOINT}}"
+          ],
+          "path": [
+            "v1",
+            "bevy",
+            "content",
+            ":key",
+            "query"
+          ],
+          "variable": [
+            {
+              "key": "key",
+              "value": "{{COLLECTION}}"
+            }
+          ]
+        }
+      },
+      "status": "OK",
+      "code": 200,
+      "_postman_previewlanguage": "json",
+      "header": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "public-api.levo.so"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Levo-Workspace,X-CF-CDN-Bot,Levo-Workspace"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "PUT,POST,GET,DELETE,OPTIONS"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "ETag",
+          "value": "W/\"bf6-qOPBlllZhv6DAhHS4UmsyFZ+VKk\""
+        },
+        {
+          "key": "X-Powered-By",
+          "value": "Express"
+        },
+        {
+          "key": "Levo-Request-ID",
+          "value": "7194297631966202839"
+        },
+        {
+          "key": "Date",
+          "value": "Thu, 09 May 2024 11:30:19 GMT"
+        },
+        {
+          "key": "Content-Length",
+          "value": "3062"
+        }
+      ],
+      "cookie": [],
+      "body": "{\n    \"status\": true,\n    \"content\": {\n        \"meta\": {\n            \"total\": 5,\n            \"pages\": 2\n        },\n        \"data\": [\n            {\n                \"_id\": \"7194296730773851362\",\n                \"title\": \"Brad Jacobs: Building a Business Empire [The Knowledge Project Ep. #190]\",\n                \"summary\": \"Brad Jacobs has built several companies worth over a billion dollars each.\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>While there is no “playbook” for growing a business, he focuses on a few factors above all else in every company he operates, and in this conversation, he reveals them all.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Brad Jacobs\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"brad-jacobs-building-a-business-empire-the-knowledge-project-ep-190\",\n                \"created_at\": \"2024-05-09T11:26:44.254Z\",\n                \"updated_at\": \"2024-05-09T11:26:44.254Z\"\n            },\n            {\n                \"_id\": \"7194296600926588484\",\n                \"title\": \"Dr. Rhonda Patrick: Diet Essentials For Healthy Living  [The Knowledge Project Ep. #191]\",\n                \"summary\": \"Shane Parrish sits down with the renowned biochemist Dr. Rhonda Patrick to explore the intricate world of nutrition and health. \",\n                \"cover_image\": null,\n                \"transcript\": \"<p>Dr. Patrick provides a deep dive into the role micronutrients play in our daily health, detailing how deficiencies and insufficiencies in vitamins, minerals, fatty acids, and amino acids can lead to serious health issues over time. Shane and Dr. Patrick also discuss the science behind deliberate heat exposure. She outlines the optimal sauna conditions—temperature, duration, and frequency—necessary for these health benefits and explains how the physiological mechanisms work.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Dr. Rhonda Patrick\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"dr-rhonda-patrick-diet-essentials-for-healthy-living-the-knowledge-project-ep-191\",\n                \"created_at\": \"2024-05-09T11:26:13.337Z\",\n                \"updated_at\": \"2024-05-09T11:26:13.337Z\"\n            },\n            {\n                \"_id\": \"7194296489781724981\",\n                \"title\": \"David Segal: Yearly Planning, Daily Action [The Knowledge Project Ep. #192]\",\n                \"summary\": \"Working in a business and working on a business are two different things. Without the former, nothing gets done; without the latter, the wrong things get done. David Segal has a unique way of managing that tension, and in this episode, he reveals all his business operating secrets. Plus, he explains how he failed along the way.\\n\\n\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>Segal and Shane explore the true essence of entrepreneurship, the sources of motivation, and the valuable lessons Segal learned while building his $200 million tea business. They also delve into the often-overlooked dark side of success, including the profound depression that can follow a significant payday. Additionally, they share life and business lessons learned from Warren Buffett and discuss the importance of effective time management.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"David Segal\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"david-segal-yearly-planning-daily-action-the-knowledge-project-ep-192\",\n                \"created_at\": \"2024-05-09T11:25:46.802Z\",\n                \"updated_at\": \"2024-05-09T11:25:46.802Z\"\n            }\n        ]\n    }\n}"
+    },
+    {
+      "name": "Success - Multi-Sorting",
+      "originalRequest": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Levo-Workspace",
+            "value": "{{WORKSPACE}}",
+            "type": "text"
+          },
+          {
+            "key": "Levo-API-Key",
+            "value": "{{API_KEY}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 3,\r\n    \"sort\":{\r\n        \"title\": \"asc\",\r\n        \"created_at\": \"desc\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
+          "host": [
+            "{{ENDPOINT}}"
+          ],
+          "path": [
+            "v1",
+            "bevy",
+            "content",
+            ":key",
+            "query"
+          ],
+          "variable": [
+            {
+              "key": "key",
+              "value": "{{COLLECTION}}"
+            }
+          ]
+        }
+      },
+      "status": "OK",
+      "code": 200,
+      "_postman_previewlanguage": "json",
+      "header": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "public-api.levo.so"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Levo-Workspace,X-CF-CDN-Bot,Levo-Workspace"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "PUT,POST,GET,DELETE,OPTIONS"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "ETag",
+          "value": "W/\"c41-3NeUxqILMblxv4lLYcnT+gaHx+0\""
+        },
+        {
+          "key": "X-Powered-By",
+          "value": "Express"
+        },
+        {
+          "key": "Levo-Request-ID",
+          "value": "7194297741332676961"
+        },
+        {
+          "key": "Date",
+          "value": "Thu, 09 May 2024 11:30:45 GMT"
+        },
+        {
+          "key": "Content-Length",
+          "value": "3137"
+        }
+      ],
+      "cookie": [],
+      "body": "{\n    \"status\": true,\n    \"content\": {\n        \"meta\": {\n            \"total\": 5,\n            \"pages\": 2\n        },\n        \"data\": [\n            {\n                \"_id\": \"7194296730773851362\",\n                \"title\": \"Brad Jacobs: Building a Business Empire [The Knowledge Project Ep. #190]\",\n                \"summary\": \"Brad Jacobs has built several companies worth over a billion dollars each.\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>While there is no “playbook” for growing a business, he focuses on a few factors above all else in every company he operates, and in this conversation, he reveals them all.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Brad Jacobs\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"brad-jacobs-building-a-business-empire-the-knowledge-project-ep-190\",\n                \"created_at\": \"2024-05-09T11:26:44.254Z\",\n                \"updated_at\": \"2024-05-09T11:26:44.254Z\"\n            },\n            {\n                \"_id\": \"7194296489781724981\",\n                \"title\": \"David Segal: Yearly Planning, Daily Action [The Knowledge Project Ep. #192]\",\n                \"summary\": \"Working in a business and working on a business are two different things. Without the former, nothing gets done; without the latter, the wrong things get done. David Segal has a unique way of managing that tension, and in this episode, he reveals all his business operating secrets. Plus, he explains how he failed along the way.\\n\\n\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>Segal and Shane explore the true essence of entrepreneurship, the sources of motivation, and the valuable lessons Segal learned while building his $200 million tea business. They also delve into the often-overlooked dark side of success, including the profound depression that can follow a significant payday. Additionally, they share life and business lessons learned from Warren Buffett and discuss the importance of effective time management.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"David Segal\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"david-segal-yearly-planning-daily-action-the-knowledge-project-ep-192\",\n                \"created_at\": \"2024-05-09T11:25:46.802Z\",\n                \"updated_at\": \"2024-05-09T11:25:46.802Z\"\n            },\n            {\n                \"_id\": \"7194296359837991042\",\n                \"title\": \"Dr. Jim Loehr: Change The Stories You Tell Yourself [The Knowledge Project Ep. #193]\",\n                \"summary\": \"What if reaching the next level of success wasn’t determined by another skill, degree, or course but by something that changed on the inside?\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>That’s what Dr. Jim Loehr believes, and in this episode, he reveals everything he knows about mental toughness and winning the mind game. Shane and Loehr discuss the radical importance of the stories you tell yourself—including how they can damage your kids—and how to change the negative stories you believe. Loehr also shares the best reflection questions to ask yourself to reveal personal blindspots, the importance of rituals for calming anxiety and performing under pressure, and how the best in the world use their recovery time effectively.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Dr. Jim Loehr\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"dr-jim-loehr-change-the-stories-you-tell-yourself-the-knowledge-project-ep-193\",\n                \"created_at\": \"2024-05-09T11:25:15.822Z\",\n                \"updated_at\": \"2024-05-09T11:25:15.822Z\"\n            }\n        ]\n    }\n}"
+    },
+    {
+      "name": "Success - Basic Search",
+      "originalRequest": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Levo-Workspace",
+            "value": "{{WORKSPACE}}",
+            "type": "text"
+          },
+          {
+            "key": "Levo-API-Key",
+            "value": "{{API_KEY}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 3,\r\n    \"search\": \"knowledge\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
+          "host": [
+            "{{ENDPOINT}}"
+          ],
+          "path": [
+            "v1",
+            "bevy",
+            "content",
+            ":key",
+            "query"
+          ],
+          "variable": [
+            {
+              "key": "key",
+              "value": "{{COLLECTION}}"
+            }
+          ]
+        }
+      },
+      "status": "OK",
+      "code": 200,
+      "_postman_previewlanguage": "json",
+      "header": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "public-api.levo.so"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Levo-Workspace,X-CF-CDN-Bot,Levo-Workspace"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "PUT,POST,GET,DELETE,OPTIONS"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "ETag",
+          "value": "W/\"c92-ITv9OcAIrqhg/lSJ6jwhxZ2LC+Q\""
+        },
+        {
+          "key": "X-Powered-By",
+          "value": "Express"
+        },
+        {
+          "key": "Levo-Request-ID",
+          "value": "7194298214269816615"
+        },
+        {
+          "key": "Date",
+          "value": "Thu, 09 May 2024 11:32:37 GMT"
+        },
+        {
+          "key": "Content-Length",
+          "value": "3218"
+        }
+      ],
+      "cookie": [],
+      "body": "{\n    \"status\": true,\n    \"content\": {\n        \"meta\": {\n            \"total\": 4,\n            \"pages\": 2\n        },\n        \"data\": [\n            {\n                \"_id\": \"7194296730773851362\",\n                \"title\": \"Brad Jacobs: Building a Business Empire [The Knowledge Project Ep. #190]\",\n                \"summary\": \"Brad Jacobs has built several companies worth over a billion dollars each.\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>While there is no “playbook” for growing a business, he focuses on a few factors above all else in every company he operates, and in this conversation, he reveals them all.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Brad Jacobs\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"brad-jacobs-building-a-business-empire-the-knowledge-project-ep-190\",\n                \"created_at\": \"2024-05-09T11:26:44.254Z\",\n                \"updated_at\": \"2024-05-09T11:26:44.254Z\",\n                \"score\": 1.6666666666666667\n            },\n            {\n                \"_id\": \"7194296359837991042\",\n                \"title\": \"Dr. Jim Loehr: Change The Stories You Tell Yourself [The Knowledge Project Ep. #193]\",\n                \"summary\": \"What if reaching the next level of success wasn’t determined by another skill, degree, or course but by something that changed on the inside?\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>That’s what Dr. Jim Loehr believes, and in this episode, he reveals everything he knows about mental toughness and winning the mind game. Shane and Loehr discuss the radical importance of the stories you tell yourself—including how they can damage your kids—and how to change the negative stories you believe. Loehr also shares the best reflection questions to ask yourself to reveal personal blindspots, the importance of rituals for calming anxiety and performing under pressure, and how the best in the world use their recovery time effectively.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"Dr. Jim Loehr\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"dr-jim-loehr-change-the-stories-you-tell-yourself-the-knowledge-project-ep-193\",\n                \"created_at\": \"2024-05-09T11:25:15.822Z\",\n                \"updated_at\": \"2024-05-09T11:25:15.822Z\",\n                \"score\": 1.6500000000000001\n            },\n            {\n                \"_id\": \"7194296489781724981\",\n                \"title\": \"David Segal: Yearly Planning, Daily Action [The Knowledge Project Ep. #192]\",\n                \"summary\": \"Working in a business and working on a business are two different things. Without the former, nothing gets done; without the latter, the wrong things get done. David Segal has a unique way of managing that tension, and in this episode, he reveals all his business operating secrets. Plus, he explains how he failed along the way.\\n\\n\",\n                \"cover_image\": null,\n                \"transcript\": \"<p>Segal and Shane explore the true essence of entrepreneurship, the sources of motivation, and the valuable lessons Segal learned while building his $200 million tea business. They also delve into the often-overlooked dark side of success, including the profound depression that can follow a significant payday. Additionally, they share life and business lessons learned from Warren Buffett and discuss the importance of effective time management.</p>\",\n                \"speaker\": [\n                    {\n                        \"name\": \"David Segal\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"host\": [\n                    {\n                        \"name\": \"Shane Parish\",\n                        \"photo\": null,\n                        \"link\": \"\"\n                    }\n                ],\n                \"slug\": \"david-segal-yearly-planning-daily-action-the-knowledge-project-ep-192\",\n                \"created_at\": \"2024-05-09T11:25:46.802Z\",\n                \"updated_at\": \"2024-05-09T11:25:46.802Z\",\n                \"score\": 1.6500000000000001\n            }\n        ]\n    }\n}"
+    },
+    {
+      "name": "Success - Basic Selection",
+      "originalRequest": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Levo-Workspace",
+            "value": "{{WORKSPACE}}",
+            "type": "text"
+          },
+          {
+            "key": "Levo-API-Key",
+            "value": "{{API_KEY}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 3,\r\n    \"select\": {\r\n        \"title\": true,\r\n        \"summary\": true,\r\n        \"cover_image\": true,\r\n        \"slug\": true,\r\n        \"created_at\": true\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
+          "host": [
+            "{{ENDPOINT}}"
+          ],
+          "path": [
+            "v1",
+            "bevy",
+            "content",
+            ":key",
+            "query"
+          ],
+          "variable": [
+            {
+              "key": "key",
+              "value": "{{COLLECTION}}"
+            }
+          ]
+        }
+      },
+      "status": "OK",
+      "code": 200,
+      "_postman_previewlanguage": "json",
+      "header": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "public-api.levo.so"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Levo-Workspace,X-CF-CDN-Bot,Levo-Workspace"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "PUT,POST,GET,DELETE,OPTIONS"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "ETag",
+          "value": "W/\"9ba-9YVkXr8belCFQfi5IyeRmi4rl7Q\""
+        },
+        {
+          "key": "X-Powered-By",
+          "value": "Express"
+        },
+        {
+          "key": "Levo-Request-ID",
+          "value": "7194298651257573286"
+        },
+        {
+          "key": "Date",
+          "value": "Thu, 09 May 2024 11:34:22 GMT"
+        },
+        {
+          "key": "Content-Length",
+          "value": "2490"
+        }
+      ],
+      "cookie": [],
+      "body": "{\n    \"status\": true,\n    \"content\": {\n        \"meta\": {\n            \"total\": 5,\n            \"pages\": 2\n        },\n        \"data\": [\n            {\n                \"_id\": \"7194295151047969509\",\n                \"title\": \"Matt Ridley: How Innovation Works\",\n                \"summary\": \"Innovation is the child of freedom\",\n                \"cover_image\": {\n                    \"id\": \"JyOazEtP2HqPl\",\n                    \"location\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c.jpg\",\n                    \"mimetype\": \"image/jpeg\",\n                    \"kind\": \"image\",\n                    \"srcset\": {\n                        \"1080w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1080w.webp\",\n                        \"1200w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1200w.webp\",\n                        \"1920w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1920w.webp\",\n                        \"320w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-320w.webp\",\n                        \"640w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-640w.webp\",\n                        \"750w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-750w.webp\",\n                        \"828w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-828w.webp\",\n                        \"path\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-320w.webp 320w, https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-828w.webp 828w, https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1080w.webp 1080w, https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1920w.webp 1920w, https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-640w.webp 640w, https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1200w.webp 1200w, https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-750w.webp 750w\"\n                    }\n                },\n                \"slug\": \"matt-ridley-how-innovation-works\",\n                \"created_at\": \"2024-05-09T11:20:27.636Z\"\n            },\n            {\n                \"_id\": \"7194296359837991042\",\n                \"title\": \"Dr. Jim Loehr: Change The Stories You Tell Yourself [The Knowledge Project Ep. #193]\",\n                \"summary\": \"What if reaching the next level of success wasn’t determined by another skill, degree, or course but by something that changed on the inside?\",\n                \"cover_image\": null,\n                \"slug\": \"dr-jim-loehr-change-the-stories-you-tell-yourself-the-knowledge-project-ep-193\",\n                \"created_at\": \"2024-05-09T11:25:15.822Z\"\n            },\n            {\n                \"_id\": \"7194296489781724981\",\n                \"title\": \"David Segal: Yearly Planning, Daily Action [The Knowledge Project Ep. #192]\",\n                \"summary\": \"Working in a business and working on a business are two different things. Without the former, nothing gets done; without the latter, the wrong things get done. David Segal has a unique way of managing that tension, and in this episode, he reveals all his business operating secrets. Plus, he explains how he failed along the way.\\n\\n\",\n                \"cover_image\": null,\n                \"slug\": \"david-segal-yearly-planning-daily-action-the-knowledge-project-ep-192\",\n                \"created_at\": \"2024-05-09T11:25:46.802Z\"\n            }\n        ]\n    }\n}"
+    },
+    {
+      "name": "Success - All Together",
+      "originalRequest": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Levo-Workspace",
+            "value": "{{WORKSPACE}}",
+            "type": "text"
+          },
+          {
+            "key": "Levo-API-Key",
+            "value": "{{API_KEY}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 3,\r\n    \"search\": \"knowledge\",\r\n    \"select\": {\r\n        \"title\": true,\r\n        \"summary\": true,\r\n        \"cover_image\": true,\r\n        \"slug\": true,\r\n        \"created_at\": true\r\n    },\r\n    \"where\": {\r\n        \"host.name\": \"Shane Parish\"\r\n    },\r\n    \"sort\":{\r\n        \"created_at\": \"desc\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
+          "host": [
+            "{{ENDPOINT}}"
+          ],
+          "path": [
+            "v1",
+            "bevy",
+            "content",
+            ":key",
+            "query"
+          ],
+          "variable": [
+            {
+              "key": "key",
+              "value": "{{COLLECTION}}"
+            }
+          ]
+        }
+      },
+      "status": "OK",
+      "code": 200,
+      "_postman_previewlanguage": "json",
+      "header": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "public-api.levo.so"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,X-Levo-Workspace,X-CF-CDN-Bot,Levo-Workspace"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "PUT,POST,GET,DELETE,OPTIONS"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "ETag",
+          "value": "W/\"5e6-wbPXkUMfc3AGq2Ed0A9SpqKQNDM\""
+        },
+        {
+          "key": "X-Powered-By",
+          "value": "Express"
+        },
+        {
+          "key": "Levo-Request-ID",
+          "value": "7194298551202447749"
+        },
+        {
+          "key": "Date",
+          "value": "Thu, 09 May 2024 11:33:58 GMT"
+        },
+        {
+          "key": "Content-Length",
+          "value": "1510"
+        }
+      ],
+      "cookie": [],
+      "body": "{\n    \"status\": true,\n    \"content\": {\n        \"meta\": {\n            \"total\": 4,\n            \"pages\": 2\n        },\n        \"data\": [\n            {\n                \"_id\": \"7194296730773851362\",\n                \"title\": \"Brad Jacobs: Building a Business Empire [The Knowledge Project Ep. #190]\",\n                \"summary\": \"Brad Jacobs has built several companies worth over a billion dollars each.\",\n                \"cover_image\": null,\n                \"slug\": \"brad-jacobs-building-a-business-empire-the-knowledge-project-ep-190\",\n                \"created_at\": \"2024-05-09T11:26:44.254Z\",\n                \"score\": 1.6666666666666667\n            },\n            {\n                \"_id\": \"7194296489781724981\",\n                \"title\": \"David Segal: Yearly Planning, Daily Action [The Knowledge Project Ep. #192]\",\n                \"summary\": \"Working in a business and working on a business are two different things. Without the former, nothing gets done; without the latter, the wrong things get done. David Segal has a unique way of managing that tension, and in this episode, he reveals all his business operating secrets. Plus, he explains how he failed along the way.\\n\\n\",\n                \"cover_image\": null,\n                \"slug\": \"david-segal-yearly-planning-daily-action-the-knowledge-project-ep-192\",\n                \"created_at\": \"2024-05-09T11:25:46.802Z\",\n                \"score\": 1.6500000000000001\n            },\n            {\n                \"_id\": \"7194296359837991042\",\n                \"title\": \"Dr. Jim Loehr: Change The Stories You Tell Yourself [The Knowledge Project Ep. #193]\",\n                \"summary\": \"What if reaching the next level of success wasn’t determined by another skill, degree, or course but by something that changed on the inside?\",\n                \"cover_image\": null,\n                \"slug\": \"dr-jim-loehr-change-the-stories-you-tell-yourself-the-knowledge-project-ep-193\",\n                \"created_at\": \"2024-05-09T11:25:15.822Z\",\n                \"score\": 1.6500000000000001\n            }\n        ]\n    }\n}"
+    }
+  ]
+}

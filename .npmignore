@@ -1,0 +1,48 @@
+# Development and build files
+/src/
+/tests/
+/docs/
+/tmp/
+/scripts/
+/node_modules/
+/.cursor/
+/.git/
+
+# Configuration files
+tsconfig.json
+biome.json
+bun.lock
+.env*
+
+# Development scripts and documentation
+prd.md
+PUBLISHING.md
+PUBLISH_SUMMARY.md
+*.test.ts
+*.test.js
+
+# TypeScript source files
+*.ts
+!*.d.ts
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Only include essential files:
+# - dist/ (built files)
+# - package.json (package configuration)
+# - README.md (documentation)
+# - LICENSE (license file)
+# - .gitignore (git configuration for users)

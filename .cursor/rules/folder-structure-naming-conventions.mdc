@@ -1,0 +1,89 @@
+---
+description: This document outlines the  naming conventions for the project. These guidelines ensure consistency and clarity, enabling developers to navigate and contribute to the codebase effectively.
+globs: 
+alwaysApply: false
+---
+# Naming Conventions
+
+## Introduction
+
+This document outlines the  naming conventions for the project. These guidelines ensure consistency and clarity, enabling developers to navigate and contribute to the codebase effectively.
+
+---
+
+## Naming Conventions
+
+Naming conventions ensure uniformity and predictability across the codebase. Below are the expanded guidelines with additional examples:
+
+### General Naming Conventions
+
+- **Files**:
+  - Use **snake_case**.
+  - **Examples**:
+    - `user_controller.ts`: Controller for user-related endpoints.
+    - `cache_utils.test.ts`: Tests for cache utilities.
+
+- **Variables**:
+  - Use **snake_case**.
+  - **Examples**:
+    - `current_user`: Stores the authenticated user object.
+    - `request_timestamp`: Marks when a request was received.
+
+- **Types/Interfaces**:
+  - Use **PascalCase** with an `I` prefix for interfaces.
+  - **Examples**:
+    - `IUserProfile`: Defines user profile properties.
+    - `ApiResponse`: Shapes API response data.
+
+- **Functions**:
+  - Use **camelCase**; exported functions may use **PascalCase**.
+  - **Examples**:
+    - `fetch_user_data`: Retrieves user details.
+    - `GenerateToken`: Creates an auth token (exported).
+
+- **Constants**:
+  - Use **UPPER_SNAKE_CASE**.
+  - **Examples**:
+    - `MAX_LOGIN_ATTEMPTS`: Limits login retries.
+    - `API_VERSION`: Tracks the current API version.
+
+- **Tests**:
+  - Match source file names with `.test.ts` suffix.
+  - **Example**: `user_service.test.ts` tests `user_service.ts`.
+  - Use descriptive test names.
+  - **Example**: `it("should validate user input", ...)`.
+
+
+---
+
+## Practical Examples
+
+Here are expanded examples showing the conventions in action:
+
+### Test Example
+```typescript
+// File: services/blog/src/services/post.test.ts
+describe("post_service", () => {
+  it("should create a post with valid data", async () => {
+    const post_data = { title: "Test", content: "Content" };
+    const result = await post_service.create_post(post_data);
+    expect(result.title).toBe("Test");
+  });
+});
+```
+
+### Configuration Example
+- File: `/config/.env.development`
+  - Content: 
+    ```
+    DATABASE_URL=postgres://user:pass@localhost:5432/levo
+    CACHE_TTL=3600
+    ```
+
+---
+
+## Additional Considerations
+
+- **Cross-Language Consistency**: Align TypeScript and Go naming where feasible (e.g., `get_by_id` in TS, `GetById` in Go for exported functions).
+- **Documentation**: Inline comments in code should explain intent, not just repeat the name (e.g., `// Fetches user by ID for authentication`).
+- **Scalability**: The structure supports adding new services or apps without refactoring existing ones.

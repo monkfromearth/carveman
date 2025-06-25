@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "type": "folder",
+    "parent_path": "test-debug/levo_public_apis/version_1/assets"
+  },
+  "name": "Media",
+  "description": "## Uploading Media\n\nThe Levo Media Service provides a convenient and efficient way to upload and store media files, such as images, videos, and documents, securely in the cloud. This service accepts multipart form-data uploads of files and converts images to WEBP format to comply with web standards.\n\nThe upload request should be a `POST` request with `multipart/form-data` content type. Include the media file as part of the form-data with the key `media`.\n\nUpon successful upload, the media service responds with a JSON object containing metadata about the uploaded file in the following format:\n\n```json\n{\n    \"id\": \"JyOazEtP2HqPl\",\n    \"location\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c.jpg\",\n    \"mimetype\": \"image/jpeg\",\n    \"kind\": \"image\",\n    \"srcset\": {\n        \"1080w\": \"https://space.levo.so/WD4RLK2Q/mqdefault-ximoeCAMljB1c-1080w.webp\",\n        ...\n    }\n}\n```\n\n- `id`: Unique identifier for the uploaded file.\n- `location`: URL where the file is stored.\n- `mimetype`: MIME type of the uploaded file.\n- `kind`: Type of the file (e.g., `image`, `video`, `document`).\n- `srcset`: Set of URLs for different resolutions of the file, converted to WEBP format.",
+  "order": [
+    "create_bulk_1.json"
+  ]
+}

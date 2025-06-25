@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "type": "collection",
+    "version": "2.1.0",
+    "generated_by": "carveman",
+    "generated_at": "2025-06-25T17:40:55.061Z"
+  },
+  "info": {
+    "_postman_id": "128fb6bb-b8ae-4c23-af0b-cfe3956b34f4",
+    "name": "Levo - Public APIs",
+    "description": "## Introduction to Levo Public APIs\n\nLevo provides a set of Public APIs to enable seamless integration with its platform. These APIs allow developers to programmatically access and manipulate data within Levo workspaces, empowering them to build custom applications and workflows tailored to their specific needs.\n\n### Authentication\n\nAccessing Levo's Public APIs requires authentication using an API key. You can obtain your API key from your Levo account settings. When making API requests, ensure that you include your API key in the request header with the key `Levo-API-Key`.\n\n### Workspace ID\n\nIn addition to the API key, you need to specify your workspace's ID in the request header with the key `Levo-Workspace`. This ensures that API requests are directed to the correct workspace.\n\n### Endpoint\n\nThe endpoint for all Levo Public APIs is `https://public-api.levo.so`. All API requests should be directed to this endpoint.\n\nWith authentication set up and the correct workspace ID provided, you can start leveraging Levo's Public APIs to integrate with your applications and unlock the full potential of your workspace.\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "14439156"
+  },
+  "variable": [
+    {
+      "key": "API_KEY",
+      "value": "wk.w9wchhpx.c3QxLEIm.9c77c62ad8ecd16e6ce28e8b8a67560a8bcfa257a8d8d41909a7858aae41f8d1",
+      "type": "string"
+    },
+    {
+      "key": "ENDPOINT",
+      "value": "https://public-api.levo.so",
+      "type": "string"
+    },
+    {
+      "key": "WORKSPACE",
+      "value": "WTEST123",
+      "type": "string"
+    },
+    {
+      "key": "COLLECTION",
+      "value": "podcast",
+      "type": "string"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "order": [
+    "version_1"
+  ]
+}

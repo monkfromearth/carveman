@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "type": "folder",
+    "parent_path": "test-debug/levo_public_apis"
+  },
+  "name": "Version 1",
+  "order": [
+    "bevy",
+    "assets"
+  ]
+}

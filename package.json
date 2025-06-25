@@ -1,20 +1,71 @@
 {
   "name": "carveman",
-  "module": "./dist/index.mjs",
-  "main": "./dist/index.cjs",
+  "version": "1.0.0",
+  "description": "A CLI utility that converts Postman Collections to a version-control-friendly file system structure and recomposes them back into JSON. This enables collaborative development and granular management of API requests.",
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "type": "module",
-  "private": true,
   "bin": {
-    "carveman": "./dist/index.mjs"
+    "carveman": "dist/index.js"
   },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "build": "bun build ./index.ts --target=node --format=esm --outdir=dist && bun build ./index.ts --target=node --format=cjs --outdir=dist",
-    "prepublishOnly": "bun run build"
+    "build": "bun build ./src/index.ts --target=node --format=esm --outdir=dist --outfile=index.js --minify",
+    "lint": "tsc --noEmit true && biome check --max-diagnostics=1000 --diagnostic-level=error --log-kind=compact ./src --write && madge --circular --extensions ts ./src",
+    "dev": "bun run src/index.ts",
+    "test": "bun test",
+    "prepublishOnly": "bun run build",
+    "version:patch": "npm version patch",
+    "version:minor": "npm version minor",
+    "version:major": "npm version major",
+    "publish:patch": "npm run version:patch && npm publish",
+    "publish:minor": "npm run version:minor && npm publish",
+    "publish:major": "npm run version:major && npm publish",
+    "publish:dry": "npm publish --dry-run",
+    "publish:beta": "npm publish --tag beta",
+    "prepack": "npm run build",
+    "pack:check": "npm pack --dry-run"
+  },
+  "keywords": [
+    "cli",
+    "project-management",
+    "automation",
+    "development",
+    "postman",
+    "collections",
+    "api",
+    "git",
+    "version-control",
+    "collaboration",
+    "file-system",
+    "json",
+    "converter"
+  ],
+  "author": {
+    "name": "Sameer Khan",
+    "email": "sameer.khan@theinternetfolks.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monkfromearth/carveman.git"
+  },
+  "bugs": {
+    "url": "https://github.com/monkfromearth/carveman/issues"
+  },
+  "homepage": "https://github.com/monkfromearth/carveman/blob/main/README.md",
+  "engines": {
+    "node": ">=18.0.0"
   },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac"
 }
