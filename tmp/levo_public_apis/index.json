@@ -40,9 +40,7 @@
       "script": {
         "type": "text/javascript",
         "packages": {},
-        "exec": [
-          ""
-        ]
+        "exec": [""]
       }
     },
     {
@@ -50,13 +48,9 @@
       "script": {
         "type": "text/javascript",
         "packages": {},
-        "exec": [
-          ""
-        ]
+        "exec": [""]
       }
     }
   ],
-  "order": [
-    "version_1"
-  ]
+  "order": ["version_1"]
 }

@@ -46,16 +46,8 @@
                     },
                     "url": {
                       "raw": "{{ENDPOINT}}/v1/bevy/content/:key/many",
-                      "host": [
-                        "{{ENDPOINT}}"
-                      ],
-                      "path": [
-                        "v1",
-                        "bevy",
-                        "content",
-                        ":key",
-                        "many"
-                      ],
+                      "host": ["{{ENDPOINT}}"],
+                      "path": ["v1", "bevy", "content", ":key", "many"],
                       "variable": [
                         {
                           "key": "key",
@@ -93,15 +85,8 @@
                         },
                         "url": {
                           "raw": "{{ENDPOINT}}/v1/bevy/content/:key",
-                          "host": [
-                            "{{ENDPOINT}}"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key"
-                          ],
+                          "host": ["{{ENDPOINT}}"],
+                          "path": ["v1", "bevy", "content", ":key"],
                           "variable": [
                             {
                               "key": "key",
@@ -189,16 +174,8 @@
                     },
                     "url": {
                       "raw": "{{ENDPOINT}}/v1/bevy/content/:key/bulk",
-                      "host": [
-                        "{{ENDPOINT}}"
-                      ],
-                      "path": [
-                        "v1",
-                        "bevy",
-                        "content",
-                        ":key",
-                        "bulk"
-                      ],
+                      "host": ["{{ENDPOINT}}"],
+                      "path": ["v1", "bevy", "content", ":key", "bulk"],
                       "variable": [
                         {
                           "key": "key",
@@ -237,18 +214,8 @@
                         "url": {
                           "raw": "https://public-api.levo.so/v1/bevy/content/:key/bulk",
                           "protocol": "https",
-                          "host": [
-                            "public-api",
-                            "levo",
-                            "so"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            "bulk"
-                          ],
+                          "host": ["public-api", "levo", "so"],
+                          "path": ["v1", "bevy", "content", ":key", "bulk"],
                           "variable": [
                             {
                               "key": "key",
@@ -336,16 +303,8 @@
                     },
                     "url": {
                       "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-                      "host": [
-                        "{{ENDPOINT}}"
-                      ],
-                      "path": [
-                        "v1",
-                        "bevy",
-                        "content",
-                        ":key",
-                        "query"
-                      ],
+                      "host": ["{{ENDPOINT}}"],
+                      "path": ["v1", "bevy", "content", ":key", "query"],
                       "variable": [
                         {
                           "key": "key",
@@ -384,18 +343,8 @@
                         "url": {
                           "raw": "https://public-api.levo.so/v1/bevy/content/:key/query",
                           "protocol": "https",
-                          "host": [
-                            "public-api",
-                            "levo",
-                            "so"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            "query"
-                          ],
+                          "host": ["public-api", "levo", "so"],
+                          "path": ["v1", "bevy", "content", ":key", "query"],
                           "variable": [
                             {
                               "key": "key",
@@ -479,16 +428,8 @@
                         },
                         "url": {
                           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-                          "host": [
-                            "{{ENDPOINT}}"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            "query"
-                          ],
+                          "host": ["{{ENDPOINT}}"],
+                          "path": ["v1", "bevy", "content", ":key", "query"],
                           "variable": [
                             {
                               "key": "key",
@@ -572,16 +513,8 @@
                         },
                         "url": {
                           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-                          "host": [
-                            "{{ENDPOINT}}"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            "query"
-                          ],
+                          "host": ["{{ENDPOINT}}"],
+                          "path": ["v1", "bevy", "content", ":key", "query"],
                           "variable": [
                             {
                               "key": "key",
@@ -665,16 +598,8 @@
                         },
                         "url": {
                           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-                          "host": [
-                            "{{ENDPOINT}}"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            "query"
-                          ],
+                          "host": ["{{ENDPOINT}}"],
+                          "path": ["v1", "bevy", "content", ":key", "query"],
                           "variable": [
                             {
                               "key": "key",
@@ -758,16 +683,8 @@
                         },
                         "url": {
                           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-                          "host": [
-                            "{{ENDPOINT}}"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            "query"
-                          ],
+                          "host": ["{{ENDPOINT}}"],
+                          "path": ["v1", "bevy", "content", ":key", "query"],
                           "variable": [
                             {
                               "key": "key",
@@ -851,16 +768,8 @@
                         },
                         "url": {
                           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-                          "host": [
-                            "{{ENDPOINT}}"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            "query"
-                          ],
+                          "host": ["{{ENDPOINT}}"],
+                          "path": ["v1", "bevy", "content", ":key", "query"],
                           "variable": [
                             {
                               "key": "key",
@@ -944,16 +853,8 @@
                         },
                         "url": {
                           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-                          "host": [
-                            "{{ENDPOINT}}"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            "query"
-                          ],
+                          "host": ["{{ENDPOINT}}"],
+                          "path": ["v1", "bevy", "content", ":key", "query"],
                           "variable": [
                             {
                               "key": "key",
@@ -1037,16 +938,8 @@
                         },
                         "url": {
                           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-                          "host": [
-                            "{{ENDPOINT}}"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            "query"
-                          ],
+                          "host": ["{{ENDPOINT}}"],
+                          "path": ["v1", "bevy", "content", ":key", "query"],
                           "variable": [
                             {
                               "key": "key",
@@ -1130,16 +1023,8 @@
                         },
                         "url": {
                           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-                          "host": [
-                            "{{ENDPOINT}}"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            "query"
-                          ],
+                          "host": ["{{ENDPOINT}}"],
+                          "path": ["v1", "bevy", "content", ":key", "query"],
                           "variable": [
                             {
                               "key": "key",
@@ -1218,16 +1103,8 @@
                     ],
                     "url": {
                       "raw": "{{ENDPOINT}}/v1/bevy/content/:key/:id",
-                      "host": [
-                        "{{ENDPOINT}}"
-                      ],
-                      "path": [
-                        "v1",
-                        "bevy",
-                        "content",
-                        ":key",
-                        ":id"
-                      ],
+                      "host": ["{{ENDPOINT}}"],
+                      "path": ["v1", "bevy", "content", ":key", ":id"],
                       "variable": [
                         {
                           "key": "key",
@@ -1261,16 +1138,8 @@
                         ],
                         "url": {
                           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/:id",
-                          "host": [
-                            "{{ENDPOINT}}"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            ":id"
-                          ],
+                          "host": ["{{ENDPOINT}}"],
+                          "path": ["v1", "bevy", "content", ":key", ":id"],
                           "variable": [
                             {
                               "key": "key",
@@ -1362,16 +1231,8 @@
                     },
                     "url": {
                       "raw": "{{ENDPOINT}}/v1/bevy/content/:key/:id",
-                      "host": [
-                        "{{ENDPOINT}}"
-                      ],
-                      "path": [
-                        "v1",
-                        "bevy",
-                        "content",
-                        ":key",
-                        ":id"
-                      ],
+                      "host": ["{{ENDPOINT}}"],
+                      "path": ["v1", "bevy", "content", ":key", ":id"],
                       "variable": [
                         {
                           "key": "key",
@@ -1415,18 +1276,8 @@
                         "url": {
                           "raw": "https://public-api.levo.so/v1/bevy/content/:key/:id",
                           "protocol": "https",
-                          "host": [
-                            "public-api",
-                            "levo",
-                            "so"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            ":id"
-                          ],
+                          "host": ["public-api", "levo", "so"],
+                          "path": ["v1", "bevy", "content", ":key", ":id"],
                           "variable": [
                             {
                               "key": "key",
@@ -1516,16 +1367,8 @@
                         },
                         "url": {
                           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/:id",
-                          "host": [
-                            "{{ENDPOINT}}"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            ":id"
-                          ],
+                          "host": ["{{ENDPOINT}}"],
+                          "path": ["v1", "bevy", "content", ":key", ":id"],
                           "variable": [
                             {
                               "key": "key",
@@ -1610,16 +1453,8 @@
                     ],
                     "url": {
                       "raw": "{{ENDPOINT}}/v1/bevy/content/:key/:id",
-                      "host": [
-                        "{{ENDPOINT}}"
-                      ],
-                      "path": [
-                        "v1",
-                        "bevy",
-                        "content",
-                        ":key",
-                        ":id"
-                      ],
+                      "host": ["{{ENDPOINT}}"],
+                      "path": ["v1", "bevy", "content", ":key", ":id"],
                       "variable": [
                         {
                           "key": "key",
@@ -1654,18 +1489,8 @@
                         "url": {
                           "raw": "https://public-api.levo.so/v1/bevy/content/:key/:id",
                           "protocol": "https",
-                          "host": [
-                            "public-api",
-                            "levo",
-                            "so"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            ":id"
-                          ],
+                          "host": ["public-api", "levo", "so"],
+                          "path": ["v1", "bevy", "content", ":key", ":id"],
                           "variable": [
                             {
                               "key": "key",
@@ -1757,16 +1582,8 @@
                     },
                     "url": {
                       "raw": "{{ENDPOINT}}/v1/bevy/content/:key/many",
-                      "host": [
-                        "{{ENDPOINT}}"
-                      ],
-                      "path": [
-                        "v1",
-                        "bevy",
-                        "content",
-                        ":key",
-                        "many"
-                      ],
+                      "host": ["{{ENDPOINT}}"],
+                      "path": ["v1", "bevy", "content", ":key", "many"],
                       "variable": [
                         {
                           "key": "key",
@@ -1800,18 +1617,8 @@
                         "url": {
                           "raw": "https://public-api.levo.so/v1/bevy/content/:key/many",
                           "protocol": "https",
-                          "host": [
-                            "public-api",
-                            "levo",
-                            "so"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            "many"
-                          ],
+                          "host": ["public-api", "levo", "so"],
+                          "path": ["v1", "bevy", "content", ":key", "many"],
                           "variable": [
                             {
                               "key": "key",
@@ -1890,16 +1697,8 @@
                         },
                         "url": {
                           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/many",
-                          "host": [
-                            "{{ENDPOINT}}"
-                          ],
-                          "path": [
-                            "v1",
-                            "bevy",
-                            "content",
-                            ":key",
-                            "many"
-                          ],
+                          "host": ["{{ENDPOINT}}"],
+                          "path": ["v1", "bevy", "content", ":key", "many"],
                           "variable": [
                             {
                               "key": "key",
@@ -2000,15 +1799,8 @@
                     },
                     "url": {
                       "raw": "{{ENDPOINT}}/v1/assets/media/bulk",
-                      "host": [
-                        "{{ENDPOINT}}"
-                      ],
-                      "path": [
-                        "v1",
-                        "assets",
-                        "media",
-                        "bulk"
-                      ]
+                      "host": ["{{ENDPOINT}}"],
+                      "path": ["v1", "assets", "media", "bulk"]
                     }
                   },
                   "response": [
@@ -2041,16 +1833,9 @@
                         "url": {
                           "raw": "http://localhost:15000/v1/assets/media/bulk",
                           "protocol": "http",
-                          "host": [
-                            "localhost"
-                          ],
+                          "host": ["localhost"],
                           "port": "15000",
-                          "path": [
-                            "v1",
-                            "assets",
-                            "media",
-                            "bulk"
-                          ]
+                          "path": ["v1", "assets", "media", "bulk"]
                         }
                       },
                       "status": "OK",
@@ -2142,9 +1927,7 @@
       "script": {
         "type": "text/javascript",
         "packages": {},
-        "exec": [
-          ""
-        ]
+        "exec": [""]
       }
     },
     {
@@ -2152,9 +1935,7 @@
       "script": {
         "type": "text/javascript",
         "packages": {},
-        "exec": [
-          ""
-        ]
+        "exec": [""]
       }
     }
   ]

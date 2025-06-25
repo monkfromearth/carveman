@@ -31,16 +31,8 @@
     },
     "url": {
       "raw": "{{ENDPOINT}}/v1/bevy/content/:key/many",
-      "host": [
-        "{{ENDPOINT}}"
-      ],
-      "path": [
-        "v1",
-        "bevy",
-        "content",
-        ":key",
-        "many"
-      ],
+      "host": ["{{ENDPOINT}}"],
+      "path": ["v1", "bevy", "content", ":key", "many"],
       "variable": [
         {
           "key": "key",
@@ -78,15 +70,8 @@
         },
         "url": {
           "raw": "{{ENDPOINT}}/v1/bevy/content/:key",
-          "host": [
-            "{{ENDPOINT}}"
-          ],
-          "path": [
-            "v1",
-            "bevy",
-            "content",
-            ":key"
-          ],
+          "host": ["{{ENDPOINT}}"],
+          "path": ["v1", "bevy", "content", ":key"],
           "variable": [
             {
               "key": "key",

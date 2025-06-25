@@ -31,16 +31,8 @@
     },
     "url": {
       "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-      "host": [
-        "{{ENDPOINT}}"
-      ],
-      "path": [
-        "v1",
-        "bevy",
-        "content",
-        ":key",
-        "query"
-      ],
+      "host": ["{{ENDPOINT}}"],
+      "path": ["v1", "bevy", "content", ":key", "query"],
       "variable": [
         {
           "key": "key",
@@ -79,18 +71,8 @@
         "url": {
           "raw": "https://public-api.levo.so/v1/bevy/content/:key/query",
           "protocol": "https",
-          "host": [
-            "public-api",
-            "levo",
-            "so"
-          ],
-          "path": [
-            "v1",
-            "bevy",
-            "content",
-            ":key",
-            "query"
-          ],
+          "host": ["public-api", "levo", "so"],
+          "path": ["v1", "bevy", "content", ":key", "query"],
           "variable": [
             {
               "key": "key",
@@ -174,16 +156,8 @@
         },
         "url": {
           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-          "host": [
-            "{{ENDPOINT}}"
-          ],
-          "path": [
-            "v1",
-            "bevy",
-            "content",
-            ":key",
-            "query"
-          ],
+          "host": ["{{ENDPOINT}}"],
+          "path": ["v1", "bevy", "content", ":key", "query"],
           "variable": [
             {
               "key": "key",
@@ -267,16 +241,8 @@
         },
         "url": {
           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-          "host": [
-            "{{ENDPOINT}}"
-          ],
-          "path": [
-            "v1",
-            "bevy",
-            "content",
-            ":key",
-            "query"
-          ],
+          "host": ["{{ENDPOINT}}"],
+          "path": ["v1", "bevy", "content", ":key", "query"],
           "variable": [
             {
               "key": "key",
@@ -360,16 +326,8 @@
         },
         "url": {
           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-          "host": [
-            "{{ENDPOINT}}"
-          ],
-          "path": [
-            "v1",
-            "bevy",
-            "content",
-            ":key",
-            "query"
-          ],
+          "host": ["{{ENDPOINT}}"],
+          "path": ["v1", "bevy", "content", ":key", "query"],
           "variable": [
             {
               "key": "key",
@@ -453,16 +411,8 @@
         },
         "url": {
           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-          "host": [
-            "{{ENDPOINT}}"
-          ],
-          "path": [
-            "v1",
-            "bevy",
-            "content",
-            ":key",
-            "query"
-          ],
+          "host": ["{{ENDPOINT}}"],
+          "path": ["v1", "bevy", "content", ":key", "query"],
           "variable": [
             {
               "key": "key",
@@ -546,16 +496,8 @@
         },
         "url": {
           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-          "host": [
-            "{{ENDPOINT}}"
-          ],
-          "path": [
-            "v1",
-            "bevy",
-            "content",
-            ":key",
-            "query"
-          ],
+          "host": ["{{ENDPOINT}}"],
+          "path": ["v1", "bevy", "content", ":key", "query"],
           "variable": [
             {
               "key": "key",
@@ -639,16 +581,8 @@
         },
         "url": {
           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-          "host": [
-            "{{ENDPOINT}}"
-          ],
-          "path": [
-            "v1",
-            "bevy",
-            "content",
-            ":key",
-            "query"
-          ],
+          "host": ["{{ENDPOINT}}"],
+          "path": ["v1", "bevy", "content", ":key", "query"],
           "variable": [
             {
               "key": "key",
@@ -732,16 +666,8 @@
         },
         "url": {
           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-          "host": [
-            "{{ENDPOINT}}"
-          ],
-          "path": [
-            "v1",
-            "bevy",
-            "content",
-            ":key",
-            "query"
-          ],
+          "host": ["{{ENDPOINT}}"],
+          "path": ["v1", "bevy", "content", ":key", "query"],
           "variable": [
             {
               "key": "key",
@@ -825,16 +751,8 @@
         },
         "url": {
           "raw": "{{ENDPOINT}}/v1/bevy/content/:key/query",
-          "host": [
-            "{{ENDPOINT}}"
-          ],
-          "path": [
-            "v1",
-            "bevy",
-            "content",
-            ":key",
-            "query"
-          ],
+          "host": ["{{ENDPOINT}}"],
+          "path": ["v1", "bevy", "content", ":key", "query"],
           "variable": [
             {
               "key": "key",

@@ -3,9 +3,13 @@
  * Handles directory creation, file reading/writing, and path operations
  */
 
-import { mkdir, readdir, stat, access } from "node:fs/promises";
-import { join, dirname, basename, resolve } from "node:path";
-import type { ICollectionIndex, IFolderIndex, IRequestFile } from "@/types/postman.ts";
+import { access, mkdir, readdir, stat } from 'node:fs/promises';
+import { basename, dirname, join, resolve } from 'node:path';
+import type {
+  ICollectionIndex,
+  IFolderIndex,
+  IRequestFile
+} from '@/types/postman.ts';
 
 /**
  * File System Manager class for handling all file operations
@@ -35,7 +39,7 @@ export class FileSystemManager {
       // Ensure directory exists
       const dir = dirname(file_path);
       await this.createDirectory(dir);
-      
+
       // Write formatted JSON using Bun's native file API
       const json_content = JSON.stringify(data, null, 2);
       await Bun.write(file_path, json_content);
@@ -118,7 +122,9 @@ export class FileSystemManager {
    * @param directory_path - Root directory to scan
    * @returns Promise<DirectoryStructure>
    */
-  async scanDirectoryStructure(directory_path: string): Promise<DirectoryStructure> {
+  async scanDirectoryStructure(
+    directory_path: string
+  ): Promise<DirectoryStructure> {
     const structure: DirectoryStructure = {
       folders: [],
       files: [],
@@ -127,10 +133,10 @@ export class FileSystemManager {
 
     try {
       const items = await this.listDirectory(directory_path);
-      
+
       for (const item of items) {
         const item_path = join(directory_path, item);
-        
+
         if (await this.isDirectory(item_path)) {
           structure.folders.push({
             name: item,
@@ -154,7 +160,9 @@ export class FileSystemManager {
         }
       }
     } catch (error) {
-      throw new Error(`Failed to scan directory structure ${directory_path}: ${error}`);
+      throw new Error(
+        `Failed to scan directory structure ${directory_path}: ${error}`
+      );
     }
 
     return structure;
@@ -166,7 +174,10 @@ export class FileSystemManager {
    * @param collection_index - Collection index data
    * @returns Promise<void>
    */
-  async writeCollectionIndex(directory_path: string, collection_index: ICollectionIndex): Promise<void> {
+  async writeCollectionIndex(
+    directory_path: string,
+    collection_index: ICollectionIndex
+  ): Promise<void> {
     const index_path = join(directory_path, 'index.json');
     await this.writeJsonFile(index_path, collection_index);
   }
@@ -177,7 +188,10 @@ export class FileSystemManager {
    * @param folder_index - Folder index data
    * @returns Promise<void>
    */
-  async writeFolderIndex(directory_path: string, folder_index: IFolderIndex): Promise<void> {
+  async writeFolderIndex(
+    directory_path: string,
+    folder_index: IFolderIndex
+  ): Promise<void> {
     const index_path = join(directory_path, 'index.json');
     await this.writeJsonFile(index_path, folder_index);
   }
@@ -189,7 +203,11 @@ export class FileSystemManager {
    * @param request_data - Request data
    * @returns Promise<void>
    */
-  async writeRequestFile(directory_path: string, filename: string, request_data: IRequestFile): Promise<void> {
+  async writeRequestFile(
+    directory_path: string,
+    filename: string,
+    request_data: IRequestFile
+  ): Promise<void> {
     const file_path = join(directory_path, filename);
     await this.writeJsonFile(file_path, request_data);
   }
@@ -228,7 +246,9 @@ export class FileSystemManager {
    * @param directory_path - Directory to validate
    * @returns Promise<ValidationResult>
    */
-  async validateDirectoryStructure(directory_path: string): Promise<ValidationResult> {
+  async validateDirectoryStructure(
+    directory_path: string
+  ): Promise<ValidationResult> {
     const result: ValidationResult = {
       is_valid: true,
       errors: [],
@@ -265,7 +285,6 @@ export class FileSystemManager {
         result.is_valid = false;
         result.errors.push(`Invalid JSON in index.json: ${error}`);
       }
-
     } catch (error) {
       result.is_valid = false;
       result.errors.push(`Validation error: ${error}`);
@@ -331,4 +350,4 @@ export interface ValidationResult {
 }
 
 // Export a singleton instance
-export const file_system_manager = new FileSystemManager(); 
+export const file_system_manager = new FileSystemManager();

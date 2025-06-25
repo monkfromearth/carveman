@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "type": "collection",
+    "version": "2.1.0",
+    "generated_by": "carveman",
+    "generated_at": "2025-06-25T19:08:07.318Z"
+  },
+  "info": {
+    "name": "Levo Test Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "test-collection-id"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.example.com"
+    }
+  ],
+  "event": [],
+  "order": ["users", "health_check"]
+}

@@ -22,16 +22,8 @@
     ],
     "url": {
       "raw": "{{ENDPOINT}}/v1/bevy/content/:key/:id",
-      "host": [
-        "{{ENDPOINT}}"
-      ],
-      "path": [
-        "v1",
-        "bevy",
-        "content",
-        ":key",
-        ":id"
-      ],
+      "host": ["{{ENDPOINT}}"],
+      "path": ["v1", "bevy", "content", ":key", ":id"],
       "variable": [
         {
           "key": "key",
@@ -66,18 +58,8 @@
         "url": {
           "raw": "https://public-api.levo.so/v1/bevy/content/:key/:id",
           "protocol": "https",
-          "host": [
-            "public-api",
-            "levo",
-            "so"
-          ],
-          "path": [
-            "v1",
-            "bevy",
-            "content",
-            ":key",
-            ":id"
-          ],
+          "host": ["public-api", "levo", "so"],
+          "path": ["v1", "bevy", "content", ":key", ":id"],
           "variable": [
             {
               "key": "key",

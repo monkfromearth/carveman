@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
     // Environment setup & latest features
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "target": "ESNext",
     "module": "Preserve",
     "moduleDetection": "force",
@@ -16,27 +14,13 @@
     // Path mappings for clean imports
     "baseUrl": "./src",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@/types/*": [
-        "./types/*"
-      ],
-      "@/parser/*": [
-        "./parser/*"
-      ],
-      "@/fs/*": [
-        "./fs/*"
-      ],
-      "@/commands/*": [
-        "./commands/*"
-      ],
-      "@/cli/*": [
-        "./cli/*"
-      ],
-      "@/utils/*": [
-        "./utils/*"
-      ]
+      "@/*": ["./*"],
+      "@/types/*": ["./types/*"],
+      "@/parser/*": ["./parser/*"],
+      "@/fs/*": ["./fs/*"],
+      "@/commands/*": ["./commands/*"],
+      "@/cli/*": ["./cli/*"],
+      "@/utils/*": ["./utils/*"]
     },
     // Best practices
     "strict": true,
@@ -49,12 +33,6 @@
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
   },
-  "include": [
-    "src/**/*",
-    "tests/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

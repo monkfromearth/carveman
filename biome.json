@@ -8,19 +8,11 @@
     "lineEnding": "lf",
     "lineWidth": 80,
     "attributePosition": "auto",
-    "ignore": [
-      "dist/**/*",
-      "**/*/dist",
-      "docs/**/*"
-    ]
+    "ignore": ["dist/**/*", "**/*/dist", "docs/**/*"]
   },
   "organizeImports": {
     "enabled": true,
-    "ignore": [
-      "docs",
-      "node_modules",
-      "dist"
-    ]
+    "ignore": ["docs", "node_modules", "dist"]
   },
   "linter": {
     "enabled": true,
@@ -36,20 +28,18 @@
       },
       "suspicious": {
         "noExplicitAny": "off",
-        "noReactSpecificProps": "off"
+        "noReactSpecificProps": "off",
+        "noConsole": "off",
+        "noConsoleLog": "off"
       },
       "performance": {
         "noReExportAll": "off"
       }
     },
-    "ignore": [
-      "docs/**/*",
-      "**/*/dist",
-      "dist/**/*",
-      "node_modules/**/*"
-    ]
+    "ignore": ["docs/**/*", "**/*/dist", "dist/**/*", "node_modules/**/*"]
   },
   "javascript": {
+    "globals": ["Bun"],
     "formatter": {
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",

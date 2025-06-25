@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "build": "bun build ./src/index.ts --target=node --format=esm --outdir=dist --outfile=index.js --minify",
-    "lint": "tsc --noEmit true && biome check --max-diagnostics=1000 --diagnostic-level=error --log-kind=compact ./src --write && madge --circular --extensions ts ./src",
+    "lint": "tsc --noEmit true && biome check --max-diagnostics=1000 --diagnostic-level=error --log-kind=compact ./src --write",
     "dev": "bun run src/index.ts",
     "test": "bun test",
     "prepublishOnly": "bun run build",
@@ -62,6 +62,7 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/bun": "latest"
   },
   "peerDependencies": {

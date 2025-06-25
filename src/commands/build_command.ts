@@ -2,8 +2,12 @@
  * Build Command - Reconstructs Postman Collection JSON from File System Structure
  */
 
-import type { IPostmanCollection, IPostmanItem, IBuildOptions } from "@/types/postman.ts";
-import { file_system_manager } from "@/fs/file_system_manager.ts";
+import { file_system_manager } from '@/fs/file_system_manager.ts';
+import type {
+  IBuildOptions,
+  IPostmanCollection,
+  IPostmanItem
+} from '@/types/postman.ts';
 
 /**
  * Build Command class for reconstructing Postman collections from file system
@@ -15,7 +19,10 @@ export class BuildCommand {
    * @param options - Build options
    * @returns Promise<BuildResult>
    */
-  async execute(input_path: string, options: IBuildOptions): Promise<BuildResult> {
+  async execute(
+    input_path: string,
+    options: IBuildOptions
+  ): Promise<BuildResult> {
     const result: BuildResult = {
       success: false,
       collection_name: '',
@@ -42,7 +49,8 @@ export class BuildCommand {
       }
 
       // Validate directory structure
-      const validation = await file_system_manager.validateDirectoryStructure(input_path);
+      const validation =
+        await file_system_manager.validateDirectoryStructure(input_path);
       if (!validation.is_valid) {
         result.errors.push(...validation.errors);
         return result;
@@ -51,12 +59,15 @@ export class BuildCommand {
       if (validation.warnings.length > 0) {
         result.warnings.push(...validation.warnings);
         if (options.verbose) {
-          validation.warnings.forEach(warning => console.log(`⚠️  ${warning}`));
+          for (const warning of validation.warnings) {
+            console.log(`⚠️  ${warning}`);
+          }
         }
       }
 
       // Read collection index
-      const collection_index = await file_system_manager.readCollectionIndex(input_path);
+      const collection_index =
+        await file_system_manager.readCollectionIndex(input_path);
       result.collection_name = collection_index.info.name;
 
       if (options.verbose) {
@@ -76,7 +87,7 @@ export class BuildCommand {
       // Process items in the order specified in index.json
       for (const item_name of collection_index.order) {
         const item_path = file_system_manager.joinPath(input_path, item_name);
-        
+
         if (await file_system_manager.pathExists(item_path)) {
           const processed_item = await this.processItem(item_path, options);
           if (processed_item) {
@@ -95,15 +106,16 @@ export class BuildCommand {
       // Validate collection if requested
       if (options.validate) {
         if (options.verbose) {
-          console.log(`🔍 Validating reconstructed collection...`);
+          console.log('🔍 Validating reconstructed collection...');
         }
-        
-        const validation_result = this.validateReconstructedCollection(collection);
+
+        const validation_result =
+          this.validateReconstructedCollection(collection);
         if (!validation_result.is_valid) {
           result.errors.push(...validation_result.errors);
           return result;
         }
-        
+
         if (validation_result.warnings.length > 0) {
           result.warnings.push(...validation_result.warnings);
         }
@@ -115,12 +127,11 @@ export class BuildCommand {
       result.success = result.errors.length === 0;
 
       if (options.verbose && result.success) {
-        console.log(`\n🎉 Build completed successfully!`);
+        console.log('\n🎉 Build completed successfully!');
         console.log(`   Collection: ${result.collection_name}`);
         console.log(`   Output: ${result.output_file}`);
         console.log(`   Items processed: ${result.items_processed}`);
       }
-
     } catch (error) {
       result.errors.push(`Build operation failed: ${error}`);
     }
@@ -134,12 +145,20 @@ export class BuildCommand {
    * @param options - Build options
    * @returns Promise<IPostmanItem | null>
    */
-  private async processItem(item_path: string, options: IBuildOptions): Promise<IPostmanItem | null> {
+  private async processItem(
+    item_path: string,
+    options: IBuildOptions
+  ): Promise<IPostmanItem | null> {
     try {
       if (await file_system_manager.isDirectory(item_path)) {
         // It's a folder
         return await this.processFolder(item_path, options);
-      } else if (await file_system_manager.isFile(item_path) && item_path.endsWith('.json')) {
+      }
+
+      if (
+        (await file_system_manager.isFile(item_path)) &&
+        item_path.endsWith('.json')
+      ) {
         // It's a request file
         return await this.processRequest(item_path, options);
       }
@@ -158,10 +177,13 @@ export class BuildCommand {
    * @param options - Build options
    * @returns Promise<IPostmanItem>
    */
-  private async processFolder(folder_path: string, options: IBuildOptions): Promise<IPostmanItem> {
+  private async processFolder(
+    folder_path: string,
+    options: IBuildOptions
+  ): Promise<IPostmanItem> {
     // Read folder index
     const folder_index = await file_system_manager.readFolderIndex(folder_path);
-    
+
     const folder_item: IPostmanItem = {
       name: folder_index.name,
       description: folder_index.description,
@@ -179,16 +201,14 @@ export class BuildCommand {
     // Process children in the order specified in index.json
     for (const child_name of folder_index.order) {
       const child_path = file_system_manager.joinPath(folder_path, child_name);
-      
+
       if (await file_system_manager.pathExists(child_path)) {
         const child_item = await this.processItem(child_path, options);
         if (child_item && folder_item.item) {
           folder_item.item.push(child_item);
         }
-      } else {
-        if (options.verbose) {
-          console.log(`⚠️  Child item not found: ${child_name}`);
-        }
+      } else if (options.verbose) {
+        console.log(`⚠️  Child item not found: ${child_name}`);
       }
     }
 
@@ -201,10 +221,14 @@ export class BuildCommand {
    * @param options - Build options
    * @returns Promise<IPostmanItem>
    */
-  private async processRequest(request_path: string, options: IBuildOptions): Promise<IPostmanItem> {
+  private async processRequest(
+    request_path: string,
+    options: IBuildOptions
+  ): Promise<IPostmanItem> {
     // Read request file
-    const request_data = await file_system_manager.readRequestFile(request_path);
-    
+    const request_data =
+      await file_system_manager.readRequestFile(request_path);
+
     const request_item: IPostmanItem = {
       name: request_data.name,
       description: request_data.description,
@@ -228,7 +252,9 @@ export class BuildCommand {
    * @param collection - Collection to validate
    * @returns ValidationResult
    */
-  private validateReconstructedCollection(collection: IPostmanCollection): ValidationResult {
+  private validateReconstructedCollection(
+    collection: IPostmanCollection
+  ): ValidationResult {
     const result: ValidationResult = {
       is_valid: true,
       errors: [],
@@ -262,7 +288,7 @@ export class BuildCommand {
     const item_validation = this.validateItems(collection.item);
     result.errors.push(...item_validation.errors);
     result.warnings.push(...item_validation.warnings);
-    
+
     if (item_validation.errors.length > 0) {
       result.is_valid = false;
     }
@@ -276,7 +302,10 @@ export class BuildCommand {
    * @param path - Current path for error reporting
    * @returns ValidationResult
    */
-  private validateItems(items: IPostmanItem[], path: string = 'root'): ValidationResult {
+  private validateItems(
+    items: IPostmanItem[],
+    path = 'root'
+  ): ValidationResult {
     const result: ValidationResult = {
       is_valid: true,
       errors: [],
@@ -289,7 +318,7 @@ export class BuildCommand {
         result.errors.push(`Item at index ${i} is undefined`);
         continue;
       }
-      
+
       const item_path = `${path}.item[${i}]`;
 
       if (!item.name) {
@@ -302,9 +331,13 @@ export class BuildCommand {
       const has_request = item.request && typeof item.request === 'object';
 
       if (has_items && has_request) {
-        result.warnings.push(`Item at ${item_path} has both "item" and "request" fields`);
-      } else if (!has_items && !has_request) {
-        result.errors.push(`Item at ${item_path} has neither "item" nor "request" field`);
+        result.warnings.push(
+          `Item at ${item_path} has both "item" and "request" fields`
+        );
+      } else if (!(has_items || has_request)) {
+        result.errors.push(
+          `Item at ${item_path} has neither "item" nor "request" field`
+        );
         continue;
       }
 
@@ -326,14 +359,14 @@ export class BuildCommand {
    */
   private countItems(items: IPostmanItem[]): number {
     let count = 0;
-    
+
     for (const item of items) {
       count++;
-      if (item && item.item) {
+      if (item?.item) {
         count += this.countItems(item.item);
       }
     }
-    
+
     return count;
   }
 }
@@ -355,4 +388,4 @@ export interface ValidationResult {
 }
 
 // Export singleton instance
-export const build_command = new BuildCommand(); 
+export const build_command = new BuildCommand();

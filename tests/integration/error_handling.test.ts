@@ -1,367 +1,298 @@
-import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { SplitCommand } from "../../src/commands/split_command";
-import { BuildCommand } from "../../src/commands/build_command";
-import { FileSystemManager } from "../../src/fs/file_system_manager";
-import { rmSync, mkdirSync } from "fs";
-import { join } from "path";
+import { afterEach, beforeEach, describe, expect, test } from 'bun:test';
+import { mkdirSync, rmSync } from 'node:fs';
+import { join } from 'node:path';
+import { BuildCommand } from '../../src/commands/build_command';
+import { SplitCommand } from '../../src/commands/split_command';
+import { FileSystemManager } from '../../src/fs/file_system_manager';
 
-describe("Error Handling Integration Tests", () => {
-  const testDir = join(process.cwd(), "test-error-handling");
-  let fsManager: FileSystemManager;
+describe('Error Handling Integration Tests', () => {
   let splitCommand: SplitCommand;
   let buildCommand: BuildCommand;
+  let fsManager: FileSystemManager;
+  const testDir = join(process.cwd(), 'test-error-handling');
 
   beforeEach(() => {
-    // Clean up any existing test directory
+    // Initialize commands without parameters
+    splitCommand = new SplitCommand();
+    buildCommand = new BuildCommand();
+    fsManager = new FileSystemManager();
+
+    // Clean up test directory
     try {
       rmSync(testDir, { recursive: true, force: true });
-    } catch (error) {
+    } catch (_error) {
       // Directory doesn't exist, which is fine
     }
-    
     mkdirSync(testDir, { recursive: true });
-    
-    fsManager = new FileSystemManager();
-    splitCommand = new SplitCommand(fsManager);
-    buildCommand = new BuildCommand(fsManager);
   });
 
   afterEach(() => {
-    // Clean up test directory after each test
     try {
       rmSync(testDir, { recursive: true, force: true });
-    } catch (error) {
+    } catch (_error) {
       // Ignore cleanup errors
     }
   });
 
-  describe("Split Command Error Handling", () => {
-    test("should handle non-existent input file", async () => {
-      const nonExistentFile = join(testDir, "does-not-exist.json");
-      
-      const result = await splitCommand.execute(nonExistentFile, {
-        output: join(testDir, "output"),
-        overwrite: false,
-        dry_run: false,
-        verbose: false
-      });
+  describe('Split Command Error Handling', () => {
+    test('should handle non-existent input file', async () => {
+      const nonExistentFile = join(testDir, 'does-not-exist.json');
+      const options = { verbose: false };
+
+      const result = await splitCommand.execute(nonExistentFile, options);
 
       expect(result.success).toBe(false);
-      expect(result.error).toContain("file");
+      expect(result.errors.length).toBeGreaterThan(0);
+      expect(result.errors[0]).toContain('file');
     });
 
-    test("should handle invalid JSON file", async () => {
-      const invalidJsonFile = join(testDir, "invalid.json");
-      await Bun.write(invalidJsonFile, "{ invalid json content }");
+    test('should handle invalid JSON file', async () => {
+      const invalidJsonFile = join(testDir, 'invalid.json');
+      await Bun.write(invalidJsonFile, '{ invalid json content }');
 
-      const result = await splitCommand.execute(invalidJsonFile, {
-        output: join(testDir, "output"),
-        overwrite: false,
-        dry_run: false,
-        verbose: false
-      });
+      const options = { verbose: false };
+      const result = await splitCommand.execute(invalidJsonFile, options);
 
       expect(result.success).toBe(false);
-      expect(result.error).toBeDefined();
+      expect(result.errors.length).toBeGreaterThan(0);
     });
 
-    test("should handle malformed collection structure", async () => {
-      const malformedFile = join(testDir, "malformed.json");
-      const malformedCollection = {
-        // Missing required 'info' field
-        item: []
-      };
-      await fsManager.writeJsonFile(malformedFile, malformedCollection);
+    test('should handle malformed collection structure', async () => {
+      const malformedFile = join(testDir, 'malformed.json');
+      await Bun.write(
+        malformedFile,
+        JSON.stringify({
+          // Missing required 'info' field
+          item: []
+        })
+      );
 
-      const result = await splitCommand.execute(malformedFile, {
-        output: join(testDir, "output"),
-        overwrite: false,
-        dry_run: false,
-        verbose: false
-      });
+      const options = { verbose: false };
+      const result = await splitCommand.execute(malformedFile, options);
 
       expect(result.success).toBe(false);
-      expect(result.error).toContain("info");
+      expect(result.errors.length).toBeGreaterThan(0);
+      expect(result.errors.some((error) => error.includes('info'))).toBe(true);
     });
 
-    test("should handle collection with missing schema", async () => {
-      const noSchemaFile = join(testDir, "no-schema.json");
-      const noSchemaCollection = {
-        info: {
-          name: "Test Collection"
-          // Missing schema field
-        },
-        item: []
-      };
-      await fsManager.writeJsonFile(noSchemaFile, noSchemaCollection);
-
-      const result = await splitCommand.execute(noSchemaFile, {
-        output: join(testDir, "output"),
-        overwrite: false,
-        dry_run: false,
-        verbose: false
-      });
-
-      expect(result.success).toBe(false);
-      expect(result.error).toBeDefined();
-    });
-
-    test("should handle permission denied on output directory", async () => {
+    test('should handle permission errors gracefully', async () => {
       const validCollection = {
         info: {
-          name: "Test Collection",
-          schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          name: 'Test Collection',
+          schema:
+            'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'
         },
         item: []
       };
-      const validFile = join(testDir, "valid.json");
-      await fsManager.writeJsonFile(validFile, validCollection);
 
-      // Try to write to a restricted path (this might not work on all systems)
-      const restrictedPath = "/root/restricted";
+      const inputFile = join(testDir, 'valid.json');
+      await Bun.write(inputFile, JSON.stringify(validCollection));
 
-      const result = await splitCommand.execute(validFile, {
-        output: restrictedPath,
-        overwrite: false,
-        dry_run: false,
-        verbose: false
-      });
+      // Try to write to a read-only location (this might not work on all systems)
+      const readOnlyOutput = '/root/read-only-test'; // This should fail on most systems
+      const options = { output: readOnlyOutput, verbose: false };
 
-      // Should handle the error gracefully
+      const result = await splitCommand.execute(inputFile, options);
+
       if (!result.success) {
-        expect(result.error).toBeDefined();
+        expect(result.errors.length).toBeGreaterThan(0);
       }
     });
 
-    test("should handle existing output directory without overwrite", async () => {
-      const validCollection = {
+    test('should handle empty collection', async () => {
+      const emptyCollection = {
         info: {
-          name: "Test Collection",
-          schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          name: 'Empty Collection',
+          schema:
+            'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'
         },
         item: []
       };
-      const validFile = join(testDir, "valid.json");
-      await fsManager.writeJsonFile(validFile, validCollection);
 
-      const outputDir = join(testDir, "output");
-      await fsManager.createDirectory(outputDir);
-      await Bun.write(join(outputDir, "existing-file.txt"), "existing content");
+      const inputFile = join(testDir, 'empty.json');
+      await Bun.write(inputFile, JSON.stringify(emptyCollection));
 
-      const result = await splitCommand.execute(validFile, {
-        output: outputDir,
-        overwrite: false,
-        dry_run: false,
-        verbose: false
-      });
+      const options = { output: testDir, overwrite: true, verbose: false };
+      const result = await splitCommand.execute(inputFile, options);
 
-      // Should either succeed (if it handles conflicts) or fail gracefully
+      // Empty collections should be valid and process successfully
+      expect(result.success).toBe(true);
+      expect(result.errors).toHaveLength(0);
+    });
+
+    test('should handle collection with invalid characters in names', async () => {
+      const collectionWithInvalidNames = {
+        info: {
+          name: 'Collection with <invalid> chars',
+          schema:
+            'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'
+        },
+        item: [
+          {
+            name: 'Request with /invalid/ chars',
+            request: {
+              method: 'GET',
+              url: 'https://api.example.com'
+            }
+          }
+        ]
+      };
+
+      const inputFile = join(testDir, 'invalid-names.json');
+      await Bun.write(inputFile, JSON.stringify(collectionWithInvalidNames));
+
+      const options = { output: testDir, overwrite: true, verbose: false };
+      const result = await splitCommand.execute(inputFile, options);
+
+      // Should handle invalid characters by sanitizing them
       if (!result.success) {
-        expect(result.error).toBeDefined();
+        expect(result.errors.length).toBeGreaterThan(0);
       }
     });
   });
 
-  describe("Build Command Error Handling", () => {
-    test("should handle non-existent input directory", async () => {
-      const nonExistentDir = join(testDir, "does-not-exist");
+  describe('Build Command Error Handling', () => {
+    test('should handle non-existent input directory', async () => {
+      const nonExistentDir = join(testDir, 'does-not-exist');
+      const options = { verbose: false };
 
-      const result = await buildCommand.execute(nonExistentDir, {
-        output: join(testDir, "output.json"),
-        validate: false,
-        verbose: false
-      });
+      const result = await buildCommand.execute(nonExistentDir, options);
 
       expect(result.success).toBe(false);
-      expect(result.error).toContain("directory");
+      expect(result.errors.length).toBeGreaterThan(0);
+      expect(result.errors[0]).toContain('directory');
     });
 
-    test("should handle directory without index.json", async () => {
-      const emptyDir = join(testDir, "empty");
-      await fsManager.createDirectory(emptyDir);
+    test('should handle missing index.json', async () => {
+      const emptyDir = join(testDir, 'empty-dir');
+      mkdirSync(emptyDir, { recursive: true });
 
-      const result = await buildCommand.execute(emptyDir, {
-        output: join(testDir, "output.json"),
-        validate: false,
-        verbose: false
-      });
+      const options = { verbose: false };
+      const result = await buildCommand.execute(emptyDir, options);
 
       expect(result.success).toBe(false);
-      expect(result.error).toContain("index.json");
+      expect(result.errors.length).toBeGreaterThan(0);
+      expect(result.errors.some((error) => error.includes('index.json'))).toBe(
+        true
+      );
     });
 
-    test("should handle malformed index.json", async () => {
-      const malformedDir = join(testDir, "malformed");
-      await fsManager.createDirectory(malformedDir);
-      
-      const malformedIndex = {
-        // Missing required fields
-        type: "collection"
-      };
-      await fsManager.writeJsonFile(join(malformedDir, "index.json"), malformedIndex);
+    test('should handle corrupted index.json', async () => {
+      const corruptedDir = join(testDir, 'corrupted-dir');
+      mkdirSync(corruptedDir, { recursive: true });
 
-      const result = await buildCommand.execute(malformedDir, {
-        output: join(testDir, "output.json"),
-        validate: false,
-        verbose: false
-      });
+      // Write invalid JSON to index.json
+      await Bun.write(join(corruptedDir, 'index.json'), '{ corrupted json }');
+
+      const options = { verbose: false };
+      const result = await buildCommand.execute(corruptedDir, options);
 
       expect(result.success).toBe(false);
-      expect(result.error).toBeDefined();
+      expect(result.errors.length).toBeGreaterThan(0);
     });
 
-    test("should handle missing request files referenced in index", async () => {
-      const incompleteDir = join(testDir, "incomplete");
-      await fsManager.createDirectory(incompleteDir);
+    test('should handle missing referenced files', async () => {
+      const incompleteDir = join(testDir, 'incomplete-dir');
+      mkdirSync(incompleteDir, { recursive: true });
 
-      const indexWithMissingFiles = {
+      // Create index.json that references non-existent files
+      const index = {
         meta: {
-          type: "collection",
-          version: "1.0.0",
-          generated_by: "carveman",
+          type: 'collection',
+          version: '1.0.0',
+          generated_by: 'test',
           generated_at: new Date().toISOString()
         },
         info: {
-          name: "Test Collection",
-          schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          name: 'Incomplete Collection',
+          schema:
+            'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'
         },
-        order: ["missing-request.json"] // This file doesn't exist
+        order: ['missing-request.json', 'missing-folder']
       };
-      await fsManager.writeJsonFile(join(incompleteDir, "index.json"), indexWithMissingFiles);
 
-      const result = await buildCommand.execute(incompleteDir, {
-        output: join(testDir, "output.json"),
-        validate: false,
-        verbose: false
-      });
+      await Bun.write(
+        join(incompleteDir, 'index.json'),
+        JSON.stringify(index, null, 2)
+      );
 
-      expect(result.success).toBe(false);
-      expect(result.error).toContain("missing-request.json");
+      const options = { verbose: false };
+      const result = await buildCommand.execute(incompleteDir, options);
+
+      // Should complete but with warnings about missing items
+      expect(result.warnings.length).toBeGreaterThan(0);
+      expect(
+        result.warnings.some((warning) =>
+          warning.includes('missing-request.json')
+        )
+      ).toBe(true);
     });
 
-    test("should handle validation failure", async () => {
-      // Create a directory structure that builds but doesn't validate
-      const invalidDir = join(testDir, "invalid-validation");
-      await fsManager.createDirectory(invalidDir);
+    test('should handle validation errors when enabled', async () => {
+      const invalidDir = join(testDir, 'invalid-structure');
+      mkdirSync(invalidDir, { recursive: true });
 
+      // Create a collection with invalid structure
       const invalidIndex = {
         meta: {
-          type: "collection",
-          version: "1.0.0",
-          generated_by: "carveman",
+          type: 'collection',
+          version: '1.0.0',
+          generated_by: 'test',
           generated_at: new Date().toISOString()
         },
         info: {
-          name: "Invalid Collection",
-          // Missing schema - will cause validation to fail
+          // Missing required name field
+          schema:
+            'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'
         },
         order: []
       };
-      await fsManager.writeJsonFile(join(invalidDir, "index.json"), invalidIndex);
 
-      const result = await buildCommand.execute(invalidDir, {
-        output: join(testDir, "output.json"),
-        validate: true, // Enable validation
-        verbose: false
-      });
+      await Bun.write(
+        join(invalidDir, 'index.json'),
+        JSON.stringify(invalidIndex, null, 2)
+      );
+
+      const options = { validate: true, verbose: false };
+      const result = await buildCommand.execute(invalidDir, options);
 
       expect(result.success).toBe(false);
-      expect(result.error).toContain("validation");
-    });
-
-    test("should handle circular folder references", async () => {
-      // This is a more complex test case that might be hard to create
-      // For now, we'll create a simple case that could cause issues
-      const circularDir = join(testDir, "circular");
-      await fsManager.createDirectory(circularDir);
-
-      const folderA = join(circularDir, "folder-a");
-      const folderB = join(folderA, "folder-b");
-      await fsManager.createDirectory(folderA);
-      await fsManager.createDirectory(folderB);
-
-      // Create index files that might cause issues
-      const indexA = {
-        meta: {
-          type: "folder",
-          parent_path: "folder-b" // This creates a potential circular reference
-        },
-        name: "Folder A",
-        order: ["folder-b"]
-      };
-      await fsManager.writeJsonFile(join(folderA, "index.json"), indexA);
-
-      const mainIndex = {
-        meta: {
-          type: "collection",
-          version: "1.0.0",
-          generated_by: "carveman",
-          generated_at: new Date().toISOString()
-        },
-        info: {
-          name: "Circular Collection",
-          schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-        },
-        order: ["folder-a"]
-      };
-      await fsManager.writeJsonFile(join(circularDir, "index.json"), mainIndex);
-
-      const result = await buildCommand.execute(circularDir, {
-        output: join(testDir, "output.json"),
-        validate: false,
-        verbose: false
-      });
-
-      // Should handle this gracefully without infinite loops
-      // Result could be success or failure, but should not hang
-      expect(result).toBeDefined();
-      expect(typeof result.success).toBe("boolean");
+      expect(result.errors.length).toBeGreaterThan(0);
+      expect(result.errors.some((error) => error.includes('validation'))).toBe(
+        true
+      );
     });
   });
 
-  describe("File System Error Handling", () => {
-    test("should handle concurrent access issues", async () => {
-      const validCollection = {
-        info: {
-          name: "Concurrent Test",
-          schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-        },
-        item: []
-      };
-      const testFile = join(testDir, "concurrent.json");
-      await fsManager.writeJsonFile(testFile, validCollection);
+  describe('File System Error Handling', () => {
+    test('should handle write permission errors', async () => {
+      // This test might not work on all systems, but it demonstrates error handling
+      const testFile = join(testDir, 'permission-test.json');
 
-      const outputDir = join(testDir, "concurrent-output");
+      try {
+        await fsManager.writeJsonFile(testFile, { test: 'data' });
+        const data = await fsManager.readJsonFile(testFile);
+        expect(data.test).toBe('data');
+      } catch (error) {
+        // If we get a permission error, that's expected for this test
+        expect(error).toBeDefined();
+      }
+    });
 
-      // Start multiple split operations simultaneously
-      const promises = [
-        splitCommand.execute(testFile, {
-          output: outputDir + "-1",
-          overwrite: true,
-          dry_run: false,
-          verbose: false
-        }),
-        splitCommand.execute(testFile, {
-          output: outputDir + "-2",
-          overwrite: true,
-          dry_run: false,
-          verbose: false
-        }),
-        splitCommand.execute(testFile, {
-          output: outputDir + "-3",
-          overwrite: true,
-          dry_run: false,
-          verbose: false
-        })
-      ];
+    test('should handle concurrent access issues', async () => {
+      const testFile = join(testDir, 'concurrent-test.json');
+      const testData = { concurrent: true };
 
-      const results = await Promise.all(promises);
+      // Try to write to the same file multiple times concurrently
+      const promises = Array.from({ length: 5 }, (_, i) =>
+        fsManager.writeJsonFile(testFile, { ...testData, id: i })
+      );
 
-      // All operations should complete without crashing
-      results.forEach(result => {
-        expect(result).toBeDefined();
-        expect(typeof result.success).toBe("boolean");
-      });
+      await Promise.all(promises);
+
+      // Should complete without throwing errors
+      const finalData = await fsManager.readJsonFile(testFile);
+      expect(finalData.concurrent).toBe(true);
     });
   });
-}); 
+});

@@ -4,7 +4,5 @@
     "parent_path": "test-debug/levo_public_apis/version_1"
   },
   "name": "Assets",
-  "order": [
-    "media"
-  ]
+  "order": ["media"]
 }

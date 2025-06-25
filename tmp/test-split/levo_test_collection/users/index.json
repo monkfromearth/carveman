@@ -1,0 +1,8 @@
+{
+  "meta": {
+    "type": "folder",
+    "parent_path": "tmp/test-split/levo_test_collection"
+  },
+  "name": "Users",
+  "order": ["get_user.json", "create_user.json"]
+}

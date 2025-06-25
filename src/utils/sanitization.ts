@@ -9,23 +9,25 @@
  * @returns Sanitized name in snake_case format
  */
 export function sanitizeName(name: string): string {
-  return name
-    // Replace spaces with underscores
-    .replace(/\s+/g, '_')
-    // Replace hyphens with underscores
-    .replace(/-/g, '_')
-    // Remove special characters except underscores and alphanumeric
-    .replace(/[^a-zA-Z0-9_]/g, '')
-    // Convert to lowercase
-    .toLowerCase()
-    // Remove leading/trailing underscores
-    .replace(/^_+|_+$/g, '')
-    // Replace multiple consecutive underscores with single underscore
-    .replace(/_+/g, '_')
-    // Ensure it doesn't start with a number
-    .replace(/^(\d)/, '_$1')
+  return (
+    name
+      // Replace spaces with underscores
+      .replace(/\s+/g, '_')
+      // Replace hyphens with underscores
+      .replace(/-/g, '_')
+      // Remove special characters except underscores and alphanumeric
+      .replace(/[^a-zA-Z0-9_]/g, '')
+      // Convert to lowercase
+      .toLowerCase()
+      // Remove leading/trailing underscores
+      .replace(/^_+|_+$/g, '')
+      // Replace multiple consecutive underscores with single underscore
+      .replace(/_+/g, '_')
+      // Ensure it doesn't start with a number
+      .replace(/^(\d)/, '_$1') ||
     // Handle empty strings
-    || 'unnamed';
+    'unnamed'
+  );
 }
 
 /**
@@ -34,15 +36,18 @@ export function sanitizeName(name: string): string {
  * @param existing_names - Set of already existing names
  * @returns Unique name
  */
-export function generateUniqueName(base_name: string, existing_names: Set<string>): string {
+export function generateUniqueName(
+  base_name: string,
+  existing_names: Set<string>
+): string {
   let unique_name = base_name;
   let counter = 1;
-  
+
   while (existing_names.has(unique_name)) {
     unique_name = `${base_name}_${counter}`;
     counter++;
   }
-  
+
   return unique_name;
 }
 
@@ -52,7 +57,7 @@ export function generateUniqueName(base_name: string, existing_names: Set<string
  * @param extension - File extension (default: '.json')
  * @returns Sanitized filename with extension
  */
-export function sanitizeFileName(name: string, extension: string = '.json'): string {
+export function sanitizeFileName(name: string, extension = '.json'): string {
   const sanitized = sanitizeName(name);
   return `${sanitized}${extension}`;
 }
@@ -67,29 +72,56 @@ export function isValidFileName(name: string): boolean {
   if (!name || name.trim().length === 0) {
     return false;
   }
-  
+
   // Check for reserved names on Windows
   const reserved_names = [
-    'CON', 'PRN', 'AUX', 'NUL',
-    'COM1', 'COM2', 'COM3', 'COM4', 'COM5', 'COM6', 'COM7', 'COM8', 'COM9',
-    'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5', 'LPT6', 'LPT7', 'LPT8', 'LPT9'
+    'CON',
+    'PRN',
+    'AUX',
+    'NUL',
+    'COM1',
+    'COM2',
+    'COM3',
+    'COM4',
+    'COM5',
+    'COM6',
+    'COM7',
+    'COM8',
+    'COM9',
+    'LPT1',
+    'LPT2',
+    'LPT3',
+    'LPT4',
+    'LPT5',
+    'LPT6',
+    'LPT7',
+    'LPT8',
+    'LPT9'
   ];
-  
+
   if (reserved_names.includes(name.toUpperCase())) {
     return false;
   }
-  
+
   // Check for invalid characters
-  const invalid_chars = /[<>:"/\\|?*\x00-\x1f]/;
+  const invalid_chars = /[<>:"/\\|?*]/;
   if (invalid_chars.test(name)) {
     return false;
   }
-  
+
+  // Check for control characters (0x00-0x1F)
+  for (let i = 0; i < name.length; i++) {
+    const char_code = name.charCodeAt(i);
+    if (char_code >= 0 && char_code <= 31) {
+      return false;
+    }
+  }
+
   // Check length (most file systems support 255 characters)
   if (name.length > 255) {
     return false;
   }
-  
+
   return true;
 }
 
@@ -108,18 +140,18 @@ export function createSafeDirectoryName(collection_name: string): string {
  * @param max_length - Maximum length (default: 200)
  * @returns Truncated name
  */
-export function truncateName(name: string, max_length: number = 200): string {
+export function truncateName(name: string, max_length = 200): string {
   if (name.length <= max_length) {
     return name;
   }
-  
+
   // Try to truncate at word boundary
   const truncated = name.substring(0, max_length);
   const last_underscore = truncated.lastIndexOf('_');
-  
+
   if (last_underscore > max_length * 0.7) {
     return truncated.substring(0, last_underscore);
   }
-  
+
   return truncated;
-} 
+}

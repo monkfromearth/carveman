@@ -3,16 +3,20 @@
  * Handles parsing, validation, and processing of Postman Collection v2.1 format
  */
 
-import type { 
-  IPostmanCollection, 
-  IPostmanItem, 
-  IPostmanInfo,
+import type {
   ICollectionIndex,
   IFolderIndex,
+  IPostmanCollection,
+  IPostmanInfo,
+  IPostmanItem,
   IRequestFile,
   PostmanItemType
-} from "@/types/postman.ts";
-import { sanitizeName, sanitizeFileName, generateUniqueName } from "@/utils/sanitization.ts";
+} from '@/types/postman.ts';
+import {
+  generateUniqueName,
+  sanitizeFileName,
+  sanitizeName
+} from '@/utils/sanitization.ts';
 
 /**
  * Postman Collection Parser class
@@ -58,7 +62,9 @@ export class PostmanParser {
         result.is_valid = false;
         result.errors.push('Missing or invalid "info.schema" field');
       } else if (!info.schema.includes('v2.1')) {
-        result.warnings.push('Schema version is not v2.1, some features may not work correctly');
+        result.warnings.push(
+          'Schema version is not v2.1, some features may not work correctly'
+        );
       }
 
       // Check for required item field
@@ -78,11 +84,10 @@ export class PostmanParser {
       const item_validation = this.validateItems(json_data.item);
       result.errors.push(...item_validation.errors);
       result.warnings.push(...item_validation.warnings);
-      
+
       if (item_validation.errors.length > 0) {
         result.is_valid = false;
       }
-
     } catch (error) {
       result.is_valid = false;
       result.errors.push(`Validation error: ${error}`);
@@ -97,7 +102,7 @@ export class PostmanParser {
    * @param path - Current path for error reporting
    * @returns ValidationResult
    */
-  private validateItems(items: any[], path: string = 'root'): ValidationResult {
+  private validateItems(items: any[], path = 'root'): ValidationResult {
     const result: ValidationResult = {
       is_valid: true,
       errors: [],
@@ -114,7 +119,9 @@ export class PostmanParser {
       }
 
       if (!item.name || typeof item.name !== 'string') {
-        result.errors.push(`Invalid item at ${item_path}: missing or invalid name`);
+        result.errors.push(
+          `Invalid item at ${item_path}: missing or invalid name`
+        );
         continue;
       }
 
@@ -123,9 +130,13 @@ export class PostmanParser {
       const has_request = item.request && typeof item.request === 'object';
 
       if (has_items && has_request) {
-        result.warnings.push(`Item at ${item_path} has both "item" and "request" fields, treating as folder`);
-      } else if (!has_items && !has_request) {
-        result.errors.push(`Item at ${item_path} has neither "item" nor "request" field`);
+        result.warnings.push(
+          `Item at ${item_path} has both "item" and "request" fields, treating as folder`
+        );
+      } else if (!(has_items || has_request)) {
+        result.errors.push(
+          `Item at ${item_path} has neither "item" nor "request" field`
+        );
         continue;
       }
 
@@ -181,8 +192,10 @@ export class PostmanParser {
     const unique_name = generateUniqueName(sanitized_name, this.existing_names);
     this.existing_names.add(unique_name);
 
-    const current_path = parent_path ? `${parent_path}/${unique_name}` : unique_name;
-    
+    const current_path = parent_path
+      ? `${parent_path}/${unique_name}`
+      : unique_name;
+
     const processed: ProcessedItem = {
       original_name: item.name,
       sanitized_name: unique_name,
@@ -225,7 +238,7 @@ export class PostmanParser {
     };
 
     if (processed_item.children.length > 0) {
-      structure_item.children = processed_item.children.map(child => 
+      structure_item.children = processed_item.children.map((child) =>
         this.createStructureItem(child)
       );
     }
@@ -241,15 +254,15 @@ export class PostmanParser {
    * @returns ICollectionIndex
    */
   createCollectionIndex(
-    collection_info: IPostmanInfo, 
+    collection_info: IPostmanInfo,
     metadata: CollectionMetadata,
     structure: StructureItem[]
   ): ICollectionIndex {
     return {
       meta: {
-        type: "collection",
-        version: "2.1.0",
-        generated_by: "carveman",
+        type: 'collection',
+        version: '2.1.0',
+        generated_by: 'carveman',
         generated_at: new Date().toISOString()
       },
       info: collection_info,
@@ -257,7 +270,7 @@ export class PostmanParser {
       event: metadata.event,
       auth: metadata.auth,
       protocolProfileBehavior: metadata.protocolProfileBehavior,
-      order: structure.map(item => item.name)
+      order: structure.map((item) => item.name)
     };
   }
 
@@ -267,18 +280,23 @@ export class PostmanParser {
    * @param parent_path - Parent path
    * @returns IFolderIndex
    */
-  createFolderIndex(processed_item: ProcessedItem, parent_path: string): IFolderIndex {
+  createFolderIndex(
+    processed_item: ProcessedItem,
+    parent_path: string
+  ): IFolderIndex {
     if (processed_item.type !== 'folder') {
       throw new Error('Cannot create folder index for non-folder item');
     }
 
-    const order = processed_item.children.map(child => {
-      return child.type === 'folder' ? child.sanitized_name : sanitizeFileName(child.sanitized_name);
+    const order = processed_item.children.map((child) => {
+      return child.type === 'folder'
+        ? child.sanitized_name
+        : sanitizeFileName(child.sanitized_name);
     });
 
     return {
       meta: {
-        type: "folder",
+        type: 'folder',
         parent_path: parent_path
       },
       name: processed_item.original_name,
@@ -297,14 +315,17 @@ export class PostmanParser {
    * @param folder_path - Folder path
    * @returns IRequestFile
    */
-  createRequestFile(processed_item: ProcessedItem, folder_path: string): IRequestFile {
+  createRequestFile(
+    processed_item: ProcessedItem,
+    folder_path: string
+  ): IRequestFile {
     if (processed_item.type !== 'request' || !processed_item.request) {
       throw new Error('Cannot create request file for non-request item');
     }
 
     return {
       meta: {
-        type: "request",
+        type: 'request',
         folder_path: folder_path
       },
       name: processed_item.original_name,
@@ -402,4 +423,4 @@ export interface ParsedCollection {
 }
 
 // Export singleton instance
-export const postman_parser = new PostmanParser(); 
+export const postman_parser = new PostmanParser();

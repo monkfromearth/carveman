@@ -148,19 +148,19 @@ export interface IPostmanCollection {
 
 // File system structure types
 export interface ICollectionMeta {
-  type: "collection";
+  type: 'collection';
   version: string;
   generated_by: string;
   generated_at: string;
 }
 
 export interface IFolderMeta {
-  type: "folder";
+  type: 'folder';
   parent_path: string;
 }
 
 export interface IRequestMeta {
-  type: "request";
+  type: 'request';
   folder_path: string;
 }
 
@@ -198,7 +198,7 @@ export interface IRequestFile {
 }
 
 // Utility types
-export type PostmanItemType = "folder" | "request";
+export type PostmanItemType = 'folder' | 'request';
 
 export interface IFileSystemItem {
   name: string;
@@ -222,7 +222,7 @@ export interface IBuildOptions {
 }
 
 export interface ICliCommand {
-  command: "split" | "build" | "help" | "version";
+  command: 'split' | 'build' | 'help' | 'version';
   input_path: string;
   options: ISplitOptions | IBuildOptions;
-} 
+}

@@ -2,7 +2,11 @@
  * CLI Parser - Handles command-line argument parsing and routing
  */
 
-import type { ICliCommand, ISplitOptions, IBuildOptions } from "@/types/postman.ts";
+import type {
+  IBuildOptions,
+  ICliCommand,
+  ISplitOptions
+} from '@/types/postman.ts';
 
 /**
  * CLI Parser class for handling command-line arguments
@@ -38,18 +42,21 @@ export class CliParser {
         return this.parseBuildCommand(clean_args.slice(1));
       case 'help':
       case '--help':
-      case '-h':
+      case '-h': {
         this.showHelp();
         return null;
+      }
       case 'version':
       case '--version':
-      case '-v':
+      case '-v': {
         this.showVersion();
         return null;
-      default:
+      }
+      default: {
         console.error(`Unknown command: ${command}`);
         this.showHelp();
         return null;
+      }
     }
   }
 
@@ -81,11 +88,13 @@ export class CliParser {
     // Parse flags
     for (let i = 1; i < args.length; i++) {
       const arg = args[i];
-      if (!arg) continue;
+      if (!arg) {
+        continue;
+      }
 
       switch (arg) {
         case '--output':
-        case '-o':
+        case '-o': {
           i++;
           options.output = args[i];
           if (!options.output) {
@@ -93,6 +102,7 @@ export class CliParser {
             return null;
           }
           break;
+        }
         case '--overwrite':
           options.overwrite = true;
           break;
@@ -103,13 +113,15 @@ export class CliParser {
           options.verbose = true;
           break;
         case '--help':
-        case '-h':
+        case '-h': {
           this.showSplitHelp();
           return null;
-        default:
+        }
+        default: {
           console.error(`Unknown flag for split command: ${arg}`);
           this.showSplitHelp();
           return null;
+        }
       }
     }
 
@@ -147,11 +159,13 @@ export class CliParser {
     // Parse flags
     for (let i = 1; i < args.length; i++) {
       const arg = args[i];
-      if (!arg) continue;
+      if (!arg) {
+        continue;
+      }
 
       switch (arg) {
         case '--output':
-        case '-o':
+        case '-o': {
           i++;
           options.output = args[i];
           if (!options.output) {
@@ -159,6 +173,7 @@ export class CliParser {
             return null;
           }
           break;
+        }
         case '--validate':
           options.validate = true;
           break;
@@ -166,13 +181,15 @@ export class CliParser {
           options.verbose = true;
           break;
         case '--help':
-        case '-h':
+        case '-h': {
           this.showBuildHelp();
           return null;
-        default:
+        }
+        default: {
           console.error(`Unknown flag for build command: ${arg}`);
           this.showBuildHelp();
           return null;
+        }
       }
     }
 
@@ -307,4 +324,4 @@ EXAMPLES:
 }
 
 // Export singleton instance
-export const cli_parser = new CliParser(); 
+export const cli_parser = new CliParser();

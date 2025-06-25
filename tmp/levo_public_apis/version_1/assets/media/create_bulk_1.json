@@ -33,15 +33,8 @@
     },
     "url": {
       "raw": "{{ENDPOINT}}/v1/assets/media/bulk",
-      "host": [
-        "{{ENDPOINT}}"
-      ],
-      "path": [
-        "v1",
-        "assets",
-        "media",
-        "bulk"
-      ]
+      "host": ["{{ENDPOINT}}"],
+      "path": ["v1", "assets", "media", "bulk"]
     }
   },
   "response": [
@@ -74,16 +67,9 @@
         "url": {
           "raw": "http://localhost:15000/v1/assets/media/bulk",
           "protocol": "http",
-          "host": [
-            "localhost"
-          ],
+          "host": ["localhost"],
           "port": "15000",
-          "path": [
-            "v1",
-            "assets",
-            "media",
-            "bulk"
-          ]
+          "path": ["v1", "assets", "media", "bulk"]
         }
       },
       "status": "OK",

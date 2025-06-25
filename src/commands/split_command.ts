@@ -2,10 +2,13 @@
  * Split Command - Converts Postman Collection JSON to File System Structure
  */
 
-import type { IPostmanCollection, ISplitOptions } from "@/types/postman.ts";
-import { postman_parser, type ProcessedItem } from "@/parser/postman_parser.ts";
-import { file_system_manager } from "@/fs/file_system_manager.ts";
-import { createSafeDirectoryName, sanitizeFileName } from "@/utils/sanitization.ts";
+import { file_system_manager } from '@/fs/file_system_manager.ts';
+import { type ProcessedItem, postman_parser } from '@/parser/postman_parser.ts';
+import type { IPostmanCollection, ISplitOptions } from '@/types/postman.ts';
+import {
+  createSafeDirectoryName,
+  sanitizeFileName
+} from '@/utils/sanitization.ts';
 
 /**
  * Split Command class for converting Postman collections to file system
@@ -17,7 +20,10 @@ export class SplitCommand {
    * @param options - Split options
    * @returns Promise<SplitResult>
    */
-  async execute(input_path: string, options: ISplitOptions): Promise<SplitResult> {
+  async execute(
+    input_path: string,
+    options: ISplitOptions
+  ): Promise<SplitResult> {
     const result: SplitResult = {
       success: false,
       collection_name: '',
@@ -40,8 +46,9 @@ export class SplitCommand {
       }
 
       // Read and parse the collection JSON
-      const collection_json = await file_system_manager.readJsonFile(input_path);
-      
+      const collection_json =
+        await file_system_manager.readJsonFile(input_path);
+
       // Validate the collection format
       const validation = postman_parser.validateCollection(collection_json);
       if (!validation.is_valid) {
@@ -52,7 +59,9 @@ export class SplitCommand {
       if (validation.warnings.length > 0) {
         result.warnings.push(...validation.warnings);
         if (options.verbose) {
-          validation.warnings.forEach(warning => console.log(`⚠️  ${warning}`));
+          for (const warning of validation.warnings) {
+            console.log(`⚠️  ${warning}`);
+          }
         }
       }
 
@@ -65,12 +74,15 @@ export class SplitCommand {
       // Determine output directory
       const output_dir = options.output || process.cwd();
       const collection_dir_name = createSafeDirectoryName(collection.info.name);
-      const full_output_path = file_system_manager.joinPath(output_dir, collection_dir_name);
+      const full_output_path = file_system_manager.joinPath(
+        output_dir,
+        collection_dir_name
+      );
       result.output_directory = full_output_path;
 
       // Check if output directory exists and handle overwrite
       if (await file_system_manager.pathExists(full_output_path)) {
-        if (!options.overwrite && !options.dry_run) {
+        if (!(options.overwrite || options.dry_run)) {
           const response = await this.promptOverwrite(full_output_path);
           if (!response) {
             result.errors.push('Operation cancelled by user');
@@ -99,16 +111,23 @@ export class SplitCommand {
         parsed_collection.structure
       );
 
-      await file_system_manager.writeCollectionIndex(full_output_path, collection_index);
+      await file_system_manager.writeCollectionIndex(
+        full_output_path,
+        collection_index
+      );
       result.files_created++;
 
       if (options.verbose) {
-        console.log(`✅ Created collection index.json`);
+        console.log('✅ Created collection index.json');
       }
 
       // Process all items recursively
       for (const item of parsed_collection.items) {
-        const item_result = await this.processItem(item, full_output_path, options);
+        const item_result = await this.processItem(
+          item,
+          full_output_path,
+          options
+        );
         result.files_created += item_result.files_created;
         result.folders_created += item_result.folders_created;
         result.errors.push(...item_result.errors);
@@ -118,13 +137,12 @@ export class SplitCommand {
       result.success = result.errors.length === 0;
 
       if (options.verbose && result.success) {
-        console.log(`\n🎉 Split completed successfully!`);
+        console.log('\n🎉 Split completed successfully!');
         console.log(`   Collection: ${result.collection_name}`);
         console.log(`   Output: ${result.output_directory}`);
         console.log(`   Files created: ${result.files_created}`);
         console.log(`   Folders created: ${result.folders_created}`);
       }
-
     } catch (error) {
       result.errors.push(`Split operation failed: ${error}`);
     }
@@ -140,8 +158,8 @@ export class SplitCommand {
    * @returns Promise<ItemProcessResult>
    */
   private async processItem(
-    item: ProcessedItem, 
-    parent_path: string, 
+    item: ProcessedItem,
+    parent_path: string,
     options: ISplitOptions
   ): Promise<ItemProcessResult> {
     const result: ItemProcessResult = {
@@ -154,7 +172,10 @@ export class SplitCommand {
     try {
       if (item.type === 'folder') {
         // Create folder directory
-        const folder_path = file_system_manager.joinPath(parent_path, item.sanitized_name);
+        const folder_path = file_system_manager.joinPath(
+          parent_path,
+          item.sanitized_name
+        );
         await file_system_manager.createDirectory(folder_path);
         result.folders_created++;
 
@@ -163,34 +184,48 @@ export class SplitCommand {
         }
 
         // Create folder index.json
-        const folder_index = postman_parser.createFolderIndex(item, parent_path);
+        const folder_index = postman_parser.createFolderIndex(
+          item,
+          parent_path
+        );
         await file_system_manager.writeFolderIndex(folder_path, folder_index);
         result.files_created++;
 
         // Process children recursively
         for (const child of item.children) {
-          const child_result = await this.processItem(child, folder_path, options);
+          const child_result = await this.processItem(
+            child,
+            folder_path,
+            options
+          );
           result.files_created += child_result.files_created;
           result.folders_created += child_result.folders_created;
           result.errors.push(...child_result.errors);
           result.warnings.push(...child_result.warnings);
         }
-
       } else if (item.type === 'request') {
         // Create request file
         const request_filename = sanitizeFileName(item.sanitized_name);
-        const request_data = postman_parser.createRequestFile(item, parent_path);
-        
-        await file_system_manager.writeRequestFile(parent_path, request_filename, request_data);
+        const request_data = postman_parser.createRequestFile(
+          item,
+          parent_path
+        );
+
+        await file_system_manager.writeRequestFile(
+          parent_path,
+          request_filename,
+          request_data
+        );
         result.files_created++;
 
         if (options.verbose) {
           console.log(`📄 Created request: ${request_filename}`);
         }
       }
-
     } catch (error) {
-      result.errors.push(`Failed to process item ${item.original_name}: ${error}`);
+      result.errors.push(
+        `Failed to process item ${item.original_name}: ${error}`
+      );
     }
 
     return result;
@@ -204,8 +239,8 @@ export class SplitCommand {
    * @returns SplitResult
    */
   private performDryRun(
-    parsed_collection: any, 
-    output_path: string, 
+    parsed_collection: any,
+    output_path: string,
     options: ISplitOptions
   ): SplitResult {
     const result: SplitResult = {
@@ -218,7 +253,7 @@ export class SplitCommand {
       warnings: []
     };
 
-    console.log(`\n🔍 DRY RUN - No files will be created\n`);
+    console.log('\n🔍 DRY RUN - No files will be created\n');
     console.log(`Would create collection structure in: ${output_path}`);
     console.log(`Collection: ${parsed_collection.info.name}\n`);
 
@@ -230,12 +265,12 @@ export class SplitCommand {
     result.files_created += count_result.files;
     result.folders_created += count_result.folders;
 
-    console.log(`Would create:`);
+    console.log('Would create:');
     console.log(`  📁 ${result.folders_created} folders`);
     console.log(`  📄 ${result.files_created} files`);
 
     if (options.verbose) {
-      console.log(`\nStructure preview:`);
+      console.log('\nStructure preview:');
       this.printStructure(parsed_collection.items, '');
     }
 
@@ -247,7 +282,10 @@ export class SplitCommand {
    * @param items - Array of processed items
    * @returns Count result
    */
-  private countItems(items: ProcessedItem[]): { files: number; folders: number } {
+  private countItems(items: ProcessedItem[]): {
+    files: number;
+    folders: number;
+  } {
     let files = 0;
     let folders = 0;
 
@@ -276,7 +314,7 @@ export class SplitCommand {
       if (item.type === 'folder') {
         console.log(`${indent}📁 ${item.sanitized_name}/`);
         console.log(`${indent}  📄 index.json`);
-        this.printStructure(item.children, indent + '  ');
+        this.printStructure(item.children, `${indent}  `);
       } else if (item.type === 'request') {
         console.log(`${indent}📄 ${sanitizeFileName(item.sanitized_name)}`);
       }
@@ -290,8 +328,10 @@ export class SplitCommand {
    */
   private async promptOverwrite(path: string): Promise<boolean> {
     console.log(`\n⚠️  Directory already exists: ${path}`);
-    console.log('Do you want to overwrite it? This will remove all existing content.');
-    
+    console.log(
+      'Do you want to overwrite it? This will remove all existing content.'
+    );
+
     // For now, return false to be safe. In a real CLI, this would prompt the user
     // You could use a library like 'prompts' for interactive input
     console.log('Use --overwrite flag to proceed automatically.');
@@ -318,4 +358,4 @@ export interface ItemProcessResult {
 }
 
 // Export singleton instance
-export const split_command = new SplitCommand(); 
+export const split_command = new SplitCommand();

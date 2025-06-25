@@ -5,10 +5,10 @@
  * Main entry point that coordinates CLI parsing and command execution
  */
 
-import { cli_parser } from "@/cli/cli_parser.ts";
-import { split_command } from "@/commands/split_command.ts";
-import { build_command } from "@/commands/build_command.ts";
-import type { ISplitOptions, IBuildOptions } from "@/types/postman.ts";
+import { cli_parser } from '@/cli/cli_parser.ts';
+import { build_command } from '@/commands/build_command.ts';
+import { split_command } from '@/commands/split_command.ts';
+import type { IBuildOptions, ISplitOptions } from '@/types/postman.ts';
 
 /**
  * Main application class
@@ -22,7 +22,7 @@ class CarvemanApp {
     try {
       // Parse command-line arguments
       const command = cli_parser.parse();
-      
+
       if (!command) {
         // Help or version was shown, or parsing failed
         process.exit(0);
@@ -36,16 +36,22 @@ class CarvemanApp {
       // Execute the appropriate command
       switch (command.command) {
         case 'split':
-          await this.executeSplit(command.input_path, command.options as ISplitOptions);
+          await this.executeSplit(
+            command.input_path,
+            command.options as ISplitOptions
+          );
           break;
         case 'build':
-          await this.executeBuild(command.input_path, command.options as IBuildOptions);
+          await this.executeBuild(
+            command.input_path,
+            command.options as IBuildOptions
+          );
           break;
-        default:
+        default: {
           console.error(`Unknown command: ${command.command}`);
           process.exit(1);
+        }
       }
-
     } catch (error) {
       console.error(`❌ Error: ${error}`);
       process.exit(1);
@@ -58,29 +64,40 @@ class CarvemanApp {
    * @param options - Split options
    * @returns Promise<void>
    */
-  private async executeSplit(input_path: string, options: ISplitOptions): Promise<void> {
+  private async executeSplit(
+    input_path: string,
+    options: ISplitOptions
+  ): Promise<void> {
     const result = await split_command.execute(input_path, options);
-    
+
     if (result.success) {
       if (!options.verbose) {
         console.log(`✅ Split completed: ${result.collection_name}`);
         console.log(`   Output: ${result.output_directory}`);
-        console.log(`   Files: ${result.files_created}, Folders: ${result.folders_created}`);
+        console.log(
+          `   Files: ${result.files_created}, Folders: ${result.folders_created}`
+        );
       }
-      
+
       if (result.warnings.length > 0) {
-        console.log(`\n⚠️  Warnings:`);
-        result.warnings.forEach(warning => console.log(`   ${warning}`));
+        console.log('\n⚠️  Warnings:');
+        for (const warning of result.warnings) {
+          console.log(`   ${warning}`);
+        }
       }
     } else {
-      console.error(`❌ Split failed:`);
-      result.errors.forEach(error => console.error(`   ${error}`));
-      
-      if (result.warnings.length > 0) {
-        console.log(`\n⚠️  Warnings:`);
-        result.warnings.forEach(warning => console.log(`   ${warning}`));
+      console.error('❌ Split failed:');
+      for (const error of result.errors) {
+        console.error(`   ${error}`);
       }
-      
+
+      if (result.warnings.length > 0) {
+        console.log('\n⚠️  Warnings:');
+        for (const warning of result.warnings) {
+          console.log(`   ${warning}`);
+        }
+      }
+
       process.exit(1);
     }
   }
@@ -91,29 +108,38 @@ class CarvemanApp {
    * @param options - Build options
    * @returns Promise<void>
    */
-  private async executeBuild(input_path: string, options: IBuildOptions): Promise<void> {
+  private async executeBuild(
+    input_path: string,
+    options: IBuildOptions
+  ): Promise<void> {
     const result = await build_command.execute(input_path, options);
-    
+
     if (result.success) {
       if (!options.verbose) {
         console.log(`✅ Build completed: ${result.collection_name}`);
         console.log(`   Output: ${result.output_file}`);
         console.log(`   Items processed: ${result.items_processed}`);
       }
-      
+
       if (result.warnings.length > 0) {
-        console.log(`\n⚠️  Warnings:`);
-        result.warnings.forEach(warning => console.log(`   ${warning}`));
+        console.log('\n⚠️  Warnings:');
+        for (const warning of result.warnings) {
+          console.log(`   ${warning}`);
+        }
       }
     } else {
-      console.error(`❌ Build failed:`);
-      result.errors.forEach(error => console.error(`   ${error}`));
-      
-      if (result.warnings.length > 0) {
-        console.log(`\n⚠️  Warnings:`);
-        result.warnings.forEach(warning => console.log(`   ${warning}`));
+      console.error('❌ Build failed:');
+      for (const error of result.errors) {
+        console.error(`   ${error}`);
       }
-      
+
+      if (result.warnings.length > 0) {
+        console.log('\n⚠️  Warnings:');
+        for (const warning of result.warnings) {
+          console.log(`   ${warning}`);
+        }
+      }
+
       process.exit(1);
     }
   }
