@@ -81,6 +81,12 @@ describe('PostmanParser', () => {
       expect(result.is_valid).toBe(false);
       expect(result.errors).toContain('Missing required "item" field');
     });
+
+    test('should handle malformed JSON gracefully', () => {
+      expect(parser.validateCollection(null as any).is_valid).toBe(false);
+      expect(parser.validateCollection(undefined as any).is_valid).toBe(false);
+      expect(parser.validateCollection('invalid' as any).is_valid).toBe(false);
+    });
   });
 
   describe('parseCollection', () => {
@@ -328,12 +334,6 @@ describe('PostmanParser', () => {
   });
 
   describe('error handling', () => {
-    test('should handle malformed JSON gracefully', () => {
-      expect(() => parser.validateCollection(null as any)).toThrow();
-      expect(() => parser.validateCollection(undefined as any)).toThrow();
-      expect(() => parser.validateCollection('invalid' as any)).toThrow();
-    });
-
     test('should handle empty collection', () => {
       const emptyCollection: IPostmanCollection = {
         info: {

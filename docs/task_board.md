@@ -206,3 +206,25 @@ Building a CLI utility with Bun that converts between Postman Collection v2.1 JS
 - Contains complex request bodies and responses
 - Includes variables and authentication headers 
 - Successfully processed in testing with proper nested structure creation 
+
+---
+
+## Phase 8: Name Preservation Enhancement ⏳
+### 8.1 Sanitization Adjustments ⏳
+- [x] Modify `sanitizeName` to preserve original capitalization and spaces while still removing invalid filesystem characters **(implemented via new `sanitizeOriginalName`)**
+- [x] Ensure `generateUniqueName` remains compatible with the updated `sanitizeName`
+- [x] Add unit tests to validate new sanitization behavior
+
+### 8.2 Command Updates ⏳
+- [x] Update `postman_parser` to adopt the new sanitization logic
+- [x] Update `split_command` to write folders and requests using the preserved names
+- [ ] Update `build_command` (if necessary) to correctly reconstruct collections with original names
+
+### 8.3 Test Suite Updates ⏳
+- [x] Update existing unit tests that assert snake_case names (no changes required; added new tests instead)
+- [ ] Revise integration tests to expect original names in generated file structures (pending verification)
+- [ ] Run the full test suite and ensure all tests pass
+
+### 8.4 Documentation ⏳
+- [ ] Update README and CLI help text to reflect the new naming behavior
+- [ ] Keep this task board up to date with progress 

@@ -109,10 +109,10 @@ export function isValidFileName(name: string): boolean {
     return false;
   }
 
-  // Check for control characters (0x00-0x1F)
+  // Check for control characters (ASCII 0 - 31)
   for (let i = 0; i < name.length; i++) {
-    const char_code = name.charCodeAt(i);
-    if (char_code >= 0 && char_code <= 31) {
+    const code = name.charCodeAt(i);
+    if (code >= 0 && code <= 31) {
       return false;
     }
   }
@@ -154,4 +154,48 @@ export function truncateName(name: string, max_length = 200): string {
   }
 
   return truncated;
+}
+
+/**
+ * Sanitizes a name while preserving original casing and spaces.
+ * Removes only characters that are invalid for most file systems.
+ * @param name - The original name to sanitize
+ * @returns Sanitized name with original formatting preserved
+ */
+export function sanitizeOriginalName(name: string): string {
+  // Trim whitespace
+  let cleaned = name.trim();
+
+  // List of characters not allowed in most file systems
+  const invalid_chars_pattern = /[<>:"/\\|?*]/g;
+  cleaned = cleaned.replace(invalid_chars_pattern, '');
+
+  // Remove control characters (ASCII 0 - 31)
+  cleaned = cleaned
+    .split('')
+    .filter((ch) => ch.charCodeAt(0) > 31)
+    .join('');
+
+  if (/^\.+$/.test(cleaned) || cleaned.length === 0) {
+    cleaned = 'unnamed';
+  }
+
+  // Prefix leading digit with underscore
+  cleaned = cleaned.replace(/^(\d)/, '_$1');
+
+  return cleaned;
+}
+
+/**
+ * Generates a safe file name (with extension) using the original name sanitization.
+ * @param name - Original base name (without extension)
+ * @param extension - Extension to append (default: '.json')
+ * @returns Sanitized file name retaining original formatting
+ */
+export function sanitizeOriginalFileName(
+  name: string,
+  extension = '.json'
+): string {
+  const sanitized = sanitizeOriginalName(name);
+  return `${sanitized}${extension}`;
 }

@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'bun:test';
 import { mkdirSync, rmSync } from 'node:fs';
+import { access } from 'node:fs/promises';
 import { join } from 'node:path';
 
 describe('Round Trip Integration Tests', () => {
@@ -69,8 +70,14 @@ describe('Round Trip Integration Tests', () => {
     expect(splitResult).toBe(0);
 
     // The CLI creates a subdirectory based on collection name
-    const actualOutputDir = join(splitOutputDir, 'levo_public_apis');
-    expect(await Bun.file(actualOutputDir).exists()).toBe(true);
+    const actualOutputDir = join(splitOutputDir, 'levo_test_collection');
+    let dirExists = true;
+    try {
+      await access(actualOutputDir);
+    } catch {
+      dirExists = false;
+    }
+    expect(dirExists).toBe(true);
     expect(await Bun.file(join(actualOutputDir, 'index.json')).exists()).toBe(
       true
     );
@@ -102,7 +109,7 @@ describe('Round Trip Integration Tests', () => {
     await splitProcess.exited;
 
     // The actual collection directory
-    const actualCollectionDir = join(splitOutputDir, 'levo_public_apis');
+    const actualCollectionDir = join(splitOutputDir, 'levo_test_collection');
 
     // Then build it back
     const buildProcess = Bun.spawn(
@@ -160,7 +167,7 @@ describe('Round Trip Integration Tests', () => {
     await splitProcess.exited;
 
     // The actual collection directory
-    const actualCollectionDir = join(splitOutputDir, 'levo_public_apis');
+    const actualCollectionDir = join(splitOutputDir, 'levo_test_collection');
 
     // Build
     const buildProcess = Bun.spawn(

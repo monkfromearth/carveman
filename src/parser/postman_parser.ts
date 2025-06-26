@@ -14,8 +14,8 @@ import type {
 } from '@/types/postman.ts';
 import {
   generateUniqueName,
-  sanitizeFileName,
-  sanitizeName
+  sanitizeOriginalName,
+  sanitizeOriginalFileName
 } from '@/utils/sanitization.ts';
 
 /**
@@ -188,7 +188,7 @@ export class PostmanParser {
    * @returns ProcessedItem
    */
   private processItem(item: IPostmanItem, parent_path: string): ProcessedItem {
-    const sanitized_name = sanitizeName(item.name);
+    const sanitized_name = sanitizeOriginalName(item.name);
     const unique_name = generateUniqueName(sanitized_name, this.existing_names);
     this.existing_names.add(unique_name);
 
@@ -270,7 +270,9 @@ export class PostmanParser {
       event: metadata.event,
       auth: metadata.auth,
       protocolProfileBehavior: metadata.protocolProfileBehavior,
-      order: structure.map((item) => item.name)
+      order: structure.map((item) =>
+        item.type === 'folder' ? item.name : `${item.name}.json`
+      )
     };
   }
 
@@ -291,7 +293,7 @@ export class PostmanParser {
     const order = processed_item.children.map((child) => {
       return child.type === 'folder'
         ? child.sanitized_name
-        : sanitizeFileName(child.sanitized_name);
+        : sanitizeOriginalFileName(child.sanitized_name);
     });
 
     return {

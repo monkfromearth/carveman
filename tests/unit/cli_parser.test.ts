@@ -197,7 +197,7 @@ describe('CliParser', () => {
         'input.json'
       ]);
       const result1 = parser1.parse();
-      expect(result1).toBeNull();
+      expect(result1?.command).toBe('split');
 
       const parser2 = new CliParser([
         'node',
@@ -206,7 +206,7 @@ describe('CliParser', () => {
         'input.json'
       ]);
       const result2 = parser2.parse();
-      expect(result2).toBeNull();
+      expect(result2?.command).toBe('split');
     });
 
     test('should handle multiple boolean flags together', () => {

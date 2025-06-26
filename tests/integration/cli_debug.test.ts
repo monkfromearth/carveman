@@ -63,7 +63,7 @@ describe('CLI Debug Tests', () => {
     console.log('Expected output dir:', splitOutputDir);
     console.log(
       'Expected collection dir:',
-      join(splitOutputDir, 'levo_public_apis')
+      join(splitOutputDir, 'levo_test_collection')
     );
 
     // Check what was actually created

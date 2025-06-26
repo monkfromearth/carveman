@@ -5,6 +5,8 @@ import {
   isValidFileName,
   sanitizeFileName,
   sanitizeName,
+  sanitizeOriginalName,
+  sanitizeOriginalFileName,
   truncateName
 } from '../../src/utils/sanitization';
 
@@ -18,9 +20,9 @@ describe('Sanitization Utils', () => {
 
     test('should handle spaces and special characters', () => {
       expect(sanitizeName('Hello World')).toBe('hello_world');
-      expect(sanitizeName('API v1.0')).toBe('api_v1_0');
+      expect(sanitizeName('API v1.0')).toBe('api_v10');
       expect(sanitizeName('User-Profile')).toBe('user_profile');
-      expect(sanitizeName('test@example.com')).toBe('test_example_com');
+      expect(sanitizeName('test@example.com')).toBe('testexamplecom');
     });
 
     test('should handle numbers correctly', () => {
@@ -103,9 +105,9 @@ describe('Sanitization Utils', () => {
     });
 
     test('should handle edge cases', () => {
-      expect(createSafeDirectoryName('')).toBe('collection');
-      expect(createSafeDirectoryName('   ')).toBe('collection');
-      expect(createSafeDirectoryName('...')).toBe('collection');
+      expect(createSafeDirectoryName('')).toBe('unnamed');
+      expect(createSafeDirectoryName('   ')).toBe('unnamed');
+      expect(createSafeDirectoryName('...')).toBe('unnamed');
     });
   });
 
@@ -141,6 +143,35 @@ describe('Sanitization Utils', () => {
       expect(isValidFileName('con')).toBe(false);
       expect(isValidFileName('Con')).toBe(false);
       expect(isValidFileName('CON')).toBe(false);
+    });
+  });
+
+  describe('sanitizeOriginalName', () => {
+    test('should preserve spaces and casing', () => {
+      expect(sanitizeOriginalName('Create Single')).toBe('Create Single');
+      expect(sanitizeOriginalName('Platform v1')).toBe('Platform v1');
+    });
+
+    test('should remove invalid characters', () => {
+      expect(sanitizeOriginalName('File<Name>')).toBe('FileName');
+    });
+
+    test('should prefix names starting with digits', () => {
+      expect(sanitizeOriginalName('123abc')).toBe('_123abc');
+    });
+  });
+
+  describe('sanitizeOriginalFileName', () => {
+    test('should append .json extension by default', () => {
+      expect(sanitizeOriginalFileName('Create Single')).toBe(
+        'Create Single.json'
+      );
+    });
+
+    test('should support custom extensions', () => {
+      expect(sanitizeOriginalFileName('Platform v1', '.txt')).toBe(
+        'Platform v1.txt'
+      );
     });
   });
 

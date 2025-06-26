@@ -7,7 +7,7 @@ import { type ProcessedItem, postman_parser } from '@/parser/postman_parser.ts';
 import type { IPostmanCollection, ISplitOptions } from '@/types/postman.ts';
 import {
   createSafeDirectoryName,
-  sanitizeFileName
+  sanitizeOriginalFileName
 } from '@/utils/sanitization.ts';
 
 /**
@@ -205,7 +205,7 @@ export class SplitCommand {
         }
       } else if (item.type === 'request') {
         // Create request file
-        const request_filename = sanitizeFileName(item.sanitized_name);
+        const request_filename = sanitizeOriginalFileName(item.sanitized_name);
         const request_data = postman_parser.createRequestFile(
           item,
           parent_path
@@ -316,7 +316,9 @@ export class SplitCommand {
         console.log(`${indent}  📄 index.json`);
         this.printStructure(item.children, `${indent}  `);
       } else if (item.type === 'request') {
-        console.log(`${indent}📄 ${sanitizeFileName(item.sanitized_name)}`);
+        console.log(
+          `${indent}📄 ${sanitizeOriginalFileName(item.sanitized_name)}`
+        );
       }
     }
   }

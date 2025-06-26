@@ -66,13 +66,20 @@ export class CliParser {
    * @returns ICliCommand | null
    */
   private parseSplitCommand(args: string[]): ICliCommand | null {
-    if (args.length === 0) {
+    // If first token is a help flag, show help and exit
+    const firstArg = args[0] ?? '';
+    if (args.length === 0 || this.isHelpFlag(firstArg)) {
       console.error('Split command requires an input file path');
       this.showSplitHelp();
       return null;
     }
 
-    const input_path = args[0];
+    // At this point args[0] is the input path (could still be a flag)
+    const input_path = firstArg;
+    if (this.isHelpFlag(input_path)) {
+      this.showSplitHelp();
+      return null;
+    }
     if (!input_path) {
       console.error('Input file path is required');
       return null;
@@ -138,15 +145,17 @@ export class CliParser {
    * @returns ICliCommand | null
    */
   private parseBuildCommand(args: string[]): ICliCommand | null {
-    if (args.length === 0) {
+    // If first token is help flag, show help
+    const buildFirstArg = args[0] ?? '';
+    if (args.length === 0 || this.isHelpFlag(buildFirstArg)) {
       console.error('Build command requires an input directory path');
       this.showBuildHelp();
       return null;
     }
 
-    const input_path = args[0];
-    if (!input_path) {
-      console.error('Input directory path is required');
+    const input_path = buildFirstArg;
+    if (this.isHelpFlag(input_path)) {
+      this.showBuildHelp();
       return null;
     }
 

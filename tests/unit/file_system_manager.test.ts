@@ -48,7 +48,7 @@ describe('FileSystemManager', () => {
     test('should not throw if directory already exists', async () => {
       await fsManager.createDirectory(testDir);
 
-      await expect(fsManager.createDirectory(testDir)).resolves.not.toThrow();
+      await expect(fsManager.createDirectory(testDir)).resolves.toBeUndefined();
       expect(await fsManager.pathExists(testDir)).toBe(true);
     });
   });
