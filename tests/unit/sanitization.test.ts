@@ -7,6 +7,7 @@ import {
   sanitizeName,
   sanitizeOriginalName,
   sanitizeOriginalFileName,
+  generateUniqueOriginalName,
   truncateName
 } from '../../src/utils/sanitization';
 
@@ -162,15 +163,34 @@ describe('Sanitization Utils', () => {
   });
 
   describe('sanitizeOriginalFileName', () => {
-    test('should append .json extension by default', () => {
+    test('should append .json by default', () => {
       expect(sanitizeOriginalFileName('Create Single')).toBe(
         'Create Single.json'
       );
     });
 
-    test('should support custom extensions', () => {
-      expect(sanitizeOriginalFileName('Platform v1', '.txt')).toBe(
-        'Platform v1.txt'
+    test('should respect custom extension', () => {
+      expect(sanitizeOriginalFileName('test', '.txt')).toBe('test.txt');
+    });
+  });
+
+  describe('generateUniqueOriginalName', () => {
+    test('should return original name if no conflicts', () => {
+      const existing = new Set<string>();
+      expect(generateUniqueOriginalName('Create Single', existing)).toBe(
+        'Create Single'
+      );
+    });
+
+    test('should append (1), (2) for conflicts', () => {
+      const existing = new Set(['Media', 'Media (1)']);
+      expect(generateUniqueOriginalName('Media', existing)).toBe('Media (2)');
+    });
+
+    test('should preserve original formatting in duplicates', () => {
+      const existing = new Set(['Platform v1.2']);
+      expect(generateUniqueOriginalName('Platform v1.2', existing)).toBe(
+        'Platform v1.2 (1)'
       );
     });
   });

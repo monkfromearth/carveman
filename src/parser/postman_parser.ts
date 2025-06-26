@@ -13,17 +13,15 @@ import type {
   PostmanItemType
 } from '@/types/postman.ts';
 import {
-  generateUniqueName,
-  sanitizeOriginalName,
-  sanitizeOriginalFileName
+  generateUniqueOriginalName,
+  sanitizeOriginalFileName,
+  sanitizeOriginalName
 } from '@/utils/sanitization.ts';
 
 /**
  * Postman Collection Parser class
  */
 export class PostmanParser {
-  private existing_names: Set<string> = new Set();
-
   /**
    * Validates if the JSON is a valid Postman Collection v2.1
    * @param json_data - Raw JSON data to validate
@@ -157,8 +155,6 @@ export class PostmanParser {
    * @returns ParsedCollection
    */
   parseCollection(collection: IPostmanCollection): ParsedCollection {
-    this.existing_names.clear();
-
     const parsed: ParsedCollection = {
       info: collection.info,
       metadata: {
@@ -171,9 +167,10 @@ export class PostmanParser {
       structure: []
     };
 
-    // Process all items
+    // Process all items with root-level sibling scope
+    const root_sibling_names = new Set<string>();
     for (const item of collection.item) {
-      const processed_item = this.processItem(item, '');
+      const processed_item = this.processItem(item, '', root_sibling_names);
       parsed.items.push(processed_item);
       parsed.structure.push(this.createStructureItem(processed_item));
     }
@@ -185,12 +182,20 @@ export class PostmanParser {
    * Processes a single item (folder or request) recursively
    * @param item - Postman item to process
    * @param parent_path - Path of the parent folder
+   * @param sibling_names - Set of names already used by siblings at this level
    * @returns ProcessedItem
    */
-  private processItem(item: IPostmanItem, parent_path: string): ProcessedItem {
+  private processItem(
+    item: IPostmanItem,
+    parent_path: string,
+    sibling_names: Set<string> = new Set()
+  ): ProcessedItem {
     const sanitized_name = sanitizeOriginalName(item.name);
-    const unique_name = generateUniqueName(sanitized_name, this.existing_names);
-    this.existing_names.add(unique_name);
+    const unique_name = generateUniqueOriginalName(
+      sanitized_name,
+      sibling_names
+    );
+    sibling_names.add(unique_name);
 
     const current_path = parent_path
       ? `${parent_path}/${unique_name}`
@@ -210,15 +215,20 @@ export class PostmanParser {
     };
 
     if (item.item) {
-      // It's a folder - process children
+      // It's a folder - process children with their own sibling scope
+      const child_names = new Set<string>();
       for (const child_item of item.item) {
-        const child_processed = this.processItem(child_item, current_path);
+        const child_processed = this.processItem(
+          child_item,
+          current_path,
+          child_names
+        );
         processed.children.push(child_processed);
       }
-    } else if (item.request) {
-      // It's a request - store request data
+    } else {
+      // It's a request
       processed.request = item.request;
-      processed.response = item.response || [];
+      processed.response = item.response;
     }
 
     return processed;

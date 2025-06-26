@@ -52,6 +52,28 @@ export function generateUniqueName(
 }
 
 /**
+ * Generates a unique name while preserving original formatting.
+ * Uses parentheses format for duplicates: "Name", "Name (1)", "Name (2)", etc.
+ * @param base_name - The base original name
+ * @param existing_names - Set of already existing names
+ * @returns Unique name with original formatting preserved
+ */
+export function generateUniqueOriginalName(
+  base_name: string,
+  existing_names: Set<string>
+): string {
+  let unique_name = base_name;
+  let counter = 1;
+
+  while (existing_names.has(unique_name)) {
+    unique_name = `${base_name} (${counter})`;
+    counter++;
+  }
+
+  return unique_name;
+}
+
+/**
  * Sanitizes a filename by adding appropriate extension
  * @param name - The name to sanitize
  * @param extension - File extension (default: '.json')
