@@ -1,6 +1,6 @@
 {
   "name": "carveman",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A CLI utility that converts Postman Collections to a version-control-friendly file system structure and recomposes them back into JSON. This enables collaborative development and granular management of API requests.",
   "module": "./dist/index.js",
   "main": "./dist/index.js",
